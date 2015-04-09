@@ -96,7 +96,8 @@ public class Game
 		// Setup game
 		camera = new Camera(this);
 		input = new KeyboardInput();
-		room = new BetaRoom();
+//		input = new ControllerInput();
+		room = new BetaRoom(this);
 		
 		Resources.loadTextures();
 	}
@@ -193,12 +194,11 @@ public class Game
 				// Enter renderpass
 				glPushMatrix();
 				{
-					// Use camera
-					camera.transformView();
-					
-					Resources.testspr.render(0, 0);
+					// Apply transformation
+					camera.translateView();
 					
 					// Render
+					Resources.testspr.render(0, 0);
 					room.render();
 				}
 				// Exit renderpass

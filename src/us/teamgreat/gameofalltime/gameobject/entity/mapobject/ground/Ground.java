@@ -3,6 +3,7 @@ package us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 
+import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
 import us.teamgreat.gameofalltime.resources.Resources;
 
@@ -22,9 +23,9 @@ public abstract class Ground extends MapObject
 	 * @param z
 	 * @param color
 	 */
-	public Ground(int x, int y, int z, Color color)
+	public Ground(int x, int y, int z, Color color, Game game)
 	{
-		super(x, y, z);
+		super(x, y, z, game);
 		this.color = color;
 	}
 	
@@ -34,37 +35,45 @@ public abstract class Ground extends MapObject
 	@Override
 	public void render()
 	{
-		// Render rectangle
-		color.bind();
-		
-		// Apply transformations
-		GL11.glScalef(Resources.BLOCK_SIZE, Resources.BLOCK_SIZE, Resources.BLOCK_SIZE);
-		GL11.glTranslated(x, y, z);
+		// Disable textures
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		{
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-			GL11.glBegin(GL11.GL_QUADS);
+			// Render rectangle
+			color.bind();
+			
+			// Apply transformations
+			game.camera.rotateView();
+			GL11.glScalef(Resources.BLOCK_SIZE, Resources.BLOCK_SIZE, Resources.BLOCK_SIZE);
+			GL11.glTranslated(x, y, z);
 			{
-				// Top
-				GL11.glVertex3f(0, 0, 0);
-				GL11.glVertex3f(1, 0, 0);
-				GL11.glVertex3f(1, 0, -1);
-				GL11.glVertex3f(0, 0, -1);
-				
-				// Left
-				GL11.glVertex3f(0, 0, -1);
-				GL11.glVertex3f(1, 0, -1);
-				GL11.glVertex3f(1, -1, -1);
-				GL11.glVertex3f(0, -1, -1);
-				
-				// Right
-				GL11.glVertex3f(1, 0, -1);
-				GL11.glVertex3f(1, 0, 0);
-				GL11.glVertex3f(1, -1, 0);
-				GL11.glVertex3f(1, -1, -1);
+				GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+				GL11.glBegin(GL11.GL_QUADS);
+				{
+					// Top
+					GL11.glVertex3f(0, 0, 0);
+					GL11.glVertex3f(1, 0, 0);
+					GL11.glVertex3f(1, 0, -1);
+					GL11.glVertex3f(0, 0, -1);
+					
+					// Left
+					GL11.glVertex3f(0, 0, -1);
+					GL11.glVertex3f(1, 0, -1);
+					GL11.glVertex3f(1, -1, -1);
+					GL11.glVertex3f(0, -1, -1);
+					
+					// Right
+					GL11.glVertex3f(1, 0, -1);
+					GL11.glVertex3f(1, 0, 0);
+					GL11.glVertex3f(1, -1, 0);
+					GL11.glVertex3f(1, -1, -1);
+				}
+				GL11.glEnd();
 			}
-			GL11.glEnd();
+			GL11.glTranslated(-x, -y, -z);
+			GL11.glScalef(1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE);
+			game.camera.undoRotation();
 		}
-		GL11.glTranslated(-x, -y, -z);
-		GL11.glScalef(1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE);
+		// Re-enable textures
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 }

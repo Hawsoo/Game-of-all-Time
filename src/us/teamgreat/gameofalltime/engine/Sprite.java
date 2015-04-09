@@ -50,6 +50,9 @@ public class Sprite
 		
 		GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
 		
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); 
+		
 		// Apply transformations
 		GL11.glTranslatef(x - xoff, y - yoff, 0);
 		{

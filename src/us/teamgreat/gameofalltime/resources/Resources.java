@@ -38,6 +38,7 @@ public class Resources
 	
 	// Sprites
 	public static Sprite testspr;
+	public static Sprite sanic_beta;
 	
 	// Key input
 	public static Vector2f joy_position = new Vector2f();
@@ -49,6 +50,7 @@ public class Resources
 	public static void loadTextures()
 	{
 		testspr = new Sprite(32, 32,"images/Untitled.png");
+		sanic_beta = new Sprite(16, 0,"images/sanic2.png");
 	}
 	
 	/**

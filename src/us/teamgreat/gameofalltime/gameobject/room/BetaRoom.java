@@ -1,5 +1,7 @@
 package us.teamgreat.gameofalltime.gameobject.room;
 
+import us.teamgreat.gameofalltime.Game;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Player;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Gnd_Regular;
 
 /**
@@ -9,8 +11,10 @@ import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Gnd_Regular
  */
 public class BetaRoom extends Room
 {
-	public BetaRoom()
+	public BetaRoom(Game game)
 	{
-		entities.add(new Gnd_Regular(0, 0, 0));
+		super(game);
+		entities.add(new Gnd_Regular(0, 0, 0, game));
+		entities.add(new Player(0, 0, 0, game));
 	}
 }

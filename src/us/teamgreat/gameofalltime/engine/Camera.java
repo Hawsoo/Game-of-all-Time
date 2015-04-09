@@ -29,12 +29,36 @@ public class Camera
 	}
 	
 	/**
-	 * Transform the view.
+	 * Translate the view.
 	 */
-	public void transformView()
+	public void translateView()
 	{
 		GL11.glTranslatef(-pos.x + (game.contextsize.width / 2), -pos.y + (game.contextsize.height / 2), 0);
+	}
+	
+	/**
+	 * Rotate the view.
+	 */
+	public void rotateView()
+	{
 		GL11.glRotatef(-angle.x, 1, 0, 0);
 		GL11.glRotatef(-angle.y, 0, 1, 0);
+	}
+	
+	/**
+	 * Undoes the translation.
+	 */
+	public void undoTranslation()
+	{
+		GL11.glTranslatef(-(-pos.x + (game.contextsize.width / 2)), -(-pos.y + (game.contextsize.height / 2)), 0);
+	}
+	
+	/**
+	 * Undoes the rotation.
+	 */
+	public void undoRotation()
+	{
+		GL11.glRotatef(angle.y, 0, 1, 0);
+		GL11.glRotatef(angle.x, 1, 0, 0);
 	}
 }

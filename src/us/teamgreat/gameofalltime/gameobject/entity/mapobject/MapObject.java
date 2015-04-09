@@ -1,5 +1,6 @@
 package us.teamgreat.gameofalltime.gameobject.entity.mapobject;
 
+import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.gameobject.entity.Entity;
 
 /**
@@ -19,9 +20,9 @@ public abstract class MapObject extends Entity
 	 * @param y
 	 * @param z
 	 */
-	public MapObject(int x, int y, int z)
+	public MapObject(int x, int y, int z, Game game)
 	{
-		super(x, y);
+		super(x, y, game);
 		this.z = z;
 	}
 }

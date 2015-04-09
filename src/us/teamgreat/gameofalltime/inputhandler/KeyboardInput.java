@@ -16,6 +16,22 @@ public class KeyboardInput implements InputHandler
 	public int left, right, up, down,
 			action, item1, item2, item3;
 	
+	/**
+	 * Creates keybindings.
+	 */
+	public KeyboardInput()
+	{
+		left = Keyboard.KEY_LEFT;
+		right = Keyboard.KEY_RIGHT;
+		up = Keyboard.KEY_UP;
+		down = Keyboard.KEY_DOWN;
+		
+		action = Keyboard.KEY_SPACE;
+		item1 = Keyboard.KEY_C;
+		item2 = Keyboard.KEY_X;
+		item3 = Keyboard.KEY_Z;
+	}
+	
 	@Override
 	public void pumpInput()
 	{

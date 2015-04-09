@@ -1,5 +1,6 @@
 package us.teamgreat.gameofalltime.gameobject.entity;
 
+import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.gameobject.GameObject;
 
 /**
@@ -9,6 +10,7 @@ import us.teamgreat.gameofalltime.gameobject.GameObject;
  */
 public abstract class Entity implements GameObject
 {
+	protected Game game;
 	protected double x, y;
 	
 	/**
@@ -16,9 +18,10 @@ public abstract class Entity implements GameObject
 	 * @param x
 	 * @param y
 	 */
-	public Entity(int x, int y)
+	public Entity(int x, int y, Game game)
 	{
 		this.x = x;
 		this.y = y;
+		this.game = game;
 	}
 }
