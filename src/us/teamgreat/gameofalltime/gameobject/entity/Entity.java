@@ -9,5 +9,16 @@ import us.teamgreat.gameofalltime.gameobject.GameObject;
  */
 public abstract class Entity implements GameObject
 {
-	double x, y;
+	protected double x, y;
+	
+	/**
+	 * Creates entity.
+	 * @param x
+	 * @param y
+	 */
+	public Entity(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
 }

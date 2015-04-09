@@ -19,6 +19,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.vector.Vector2f;
 
+import us.teamgreat.gameofalltime.engine.Sprite;
+
 /**
  * Packages all resources in a
  * registry.
@@ -32,9 +34,22 @@ public class Resources
 	
 	public static final String RESOURCES_DIR = "/us/teamgreat/gameofalltime/resources/";
 	
+	public static final int BLOCK_SIZE = 32;
+	
+	// Sprites
+	public static Sprite testspr;
+	
 	// Key input
 	public static Vector2f joy_position = new Vector2f();
 	public static boolean action = false, item1 = false, item2 = false, item3 = false;
+	
+	/**
+	 * Loads the textures.
+	 */
+	public static void loadTextures()
+	{
+		testspr = new Sprite(32, 32,"images/Untitled.png");
+	}
 	
 	/**
 	 * Creates a bytebuffer image.

@@ -24,8 +24,11 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import us.teamgreat.gameofalltime.engine.Camera;
 import us.teamgreat.gameofalltime.gameobject.room.BetaRoom;
 import us.teamgreat.gameofalltime.gameobject.room.Room;
+import us.teamgreat.gameofalltime.inputhandler.InputHandler;
+import us.teamgreat.gameofalltime.inputhandler.KeyboardInput;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -43,6 +46,8 @@ public class Game
 	public float fps = 60;
 	public Dimension contextsize = new Dimension();
 	
+	public Camera camera;
+	public InputHandler input;
 	public Room room;
 	
 	// Flags
@@ -89,7 +94,11 @@ public class Game
 		setupOpenGLContext();
 		
 		// Setup game
+		camera = new Camera(this);
+		input = new KeyboardInput();
 		room = new BetaRoom();
+		
+		Resources.loadTextures();
 	}
 	
 	/**
@@ -165,6 +174,7 @@ public class Game
 				///////////////
 				
 				Mouse.poll();
+				input.pumpInput();
 				
 				////////////
 				// UPDATE //
@@ -183,6 +193,11 @@ public class Game
 				// Enter renderpass
 				glPushMatrix();
 				{
+					// Use camera
+					camera.transformView();
+					
+					Resources.testspr.render(0, 0);
+					
 					// Render
 					room.render();
 				}

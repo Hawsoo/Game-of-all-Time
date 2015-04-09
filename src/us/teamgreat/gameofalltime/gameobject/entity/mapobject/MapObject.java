@@ -10,5 +10,18 @@ import us.teamgreat.gameofalltime.gameobject.entity.Entity;
  */
 public abstract class MapObject extends Entity
 {
-	double hspeed, vspeed;
+	protected double z;
+	protected double hspeed, vspeed;
+	
+	/**
+	 * Create mapobject.
+	 * @param x
+	 * @param y
+	 * @param z
+	 */
+	public MapObject(int x, int y, int z)
+	{
+		super(x, y);
+		this.z = z;
+	}
 }
