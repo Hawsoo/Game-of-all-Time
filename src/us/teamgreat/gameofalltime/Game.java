@@ -24,6 +24,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
+import us.teamgreat.gameofalltime.gameobject.room.BetaRoom;
+import us.teamgreat.gameofalltime.gameobject.room.Room;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -40,6 +42,8 @@ public class Game
 	
 	public float fps = 60;
 	public Dimension contextsize = new Dimension();
+	
+	public Room room;
 	
 	// Flags
 	private boolean running = true;
@@ -76,12 +80,16 @@ public class Game
 		try
 		{
 			Display.create();
+			Mouse.create();
 			Keyboard.create();
 			Controllers.create();
 		} catch (LWJGLException e) {}
 		
 		// Setup OpenGL context
 		setupOpenGLContext();
+		
+		// Setup game
+		room = new BetaRoom();
 	}
 	
 	/**
@@ -155,32 +163,31 @@ public class Game
 				///////////////
 				// GET INPUT //
 				///////////////
-				{
-					Mouse.poll();
-				}
+				
+				Mouse.poll();
 				
 				////////////
 				// UPDATE //
 				////////////
-				{
-				}
+				
+				room.update();
 				
 				////////////
 				// RENDER //
 				////////////
+				
+				// Clear Buffers
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				glLoadIdentity();
+				
+				// Enter renderpass
+				glPushMatrix();
 				{
-					// Clear Buffers
-					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					glLoadIdentity();
-					
-					// Enter renderpass
-					glPushMatrix();
-					{
-						// Render
-					}
-					// Exit renderpass
-					glPopMatrix();
+					// Render
+					room.render();
 				}
+				// Exit renderpass
+				glPopMatrix();
 			}
 			
 			// Check if close is requested
@@ -196,6 +203,7 @@ public class Game
 		
 		// Dispose and Cleanup
 		Display.destroy();
+		Mouse.destroy();
 		Keyboard.destroy();
 		Controllers.destroy();
 	}
