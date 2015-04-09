@@ -25,7 +25,7 @@ public abstract class Ground extends MapObject
 	 */
 	public Ground(int x, int y, int z, Color color, Game game)
 	{
-		super(x, y, z, game);
+		super(x * Resources.BLOCK_SIZE, y * Resources.BLOCK_SIZE, z * Resources.BLOCK_SIZE, game);
 		this.color = color;
 	}
 	
@@ -42,9 +42,9 @@ public abstract class Ground extends MapObject
 			color.bind();
 			
 			// Apply transformations
-			game.camera.rotateView();
-			GL11.glScalef(Resources.BLOCK_SIZE, Resources.BLOCK_SIZE, Resources.BLOCK_SIZE);
 			GL11.glTranslated(x, y, z);
+			game.tiltycamera.rotateView();
+			GL11.glScalef(Resources.BLOCK_SIZE, Resources.BLOCK_SIZE, Resources.BLOCK_SIZE);
 			{
 				GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
 				GL11.glBegin(GL11.GL_QUADS);
@@ -69,9 +69,9 @@ public abstract class Ground extends MapObject
 				}
 				GL11.glEnd();
 			}
-			GL11.glTranslated(-x, -y, -z);
 			GL11.glScalef(1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE);
-			game.camera.undoRotation();
+			game.tiltycamera.undoRotation();
+			GL11.glTranslated(-x, -y, -z);
 		}
 		// Re-enable textures
 		GL11.glEnable(GL11.GL_TEXTURE_2D);

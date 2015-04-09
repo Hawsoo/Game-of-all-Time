@@ -11,7 +11,7 @@ import us.teamgreat.gameofalltime.gameobject.GameObject;
 public abstract class Entity implements GameObject
 {
 	protected Game game;
-	protected double x, y;
+	public double x, y;
 	
 	/**
 	 * Creates entity.

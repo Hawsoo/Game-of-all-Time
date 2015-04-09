@@ -20,12 +20,11 @@ public class Camera
 	/**
 	 * Creates the camera.
 	 */
-	public Camera(Game game)
+	public Camera(Vector2f pos, Vector2f angle, Game game)
 	{
 		this.game = game;
-		
-		pos = new Vector2f(0, 0);
-		angle = new Vector2f(35, -45);
+		this.pos = pos;
+		this.angle = angle;
 	}
 	
 	/**

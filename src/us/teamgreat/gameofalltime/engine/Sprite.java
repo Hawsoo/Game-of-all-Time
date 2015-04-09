@@ -3,6 +3,7 @@ package us.teamgreat.gameofalltime.engine;
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
@@ -41,7 +42,7 @@ public class Sprite
 	 * @param x
 	 * @param y
 	 */
-	public void render(int x, int y)
+	public void render(int x, int y, Vector2f angle)
 	{
 		texture.bind();
 		
@@ -54,7 +55,11 @@ public class Sprite
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); 
 		
 		// Apply transformations
+		GL11.glRotatef(-angle.x, 1, 0, 0);
+		GL11.glRotatef(-angle.y, 0, 1, 0);
 		GL11.glTranslatef(x - xoff, y - yoff, 0);
+		GL11.glRotatef(-angle.y, 0, -1, 0);
+		GL11.glRotatef(-angle.x, -1, 0, 0);
 		{
 			// Draw texture
 			GL11.glBegin(GL11.GL_QUADS);
@@ -74,6 +79,10 @@ public class Sprite
 			GL11.glEnd();
 		}
 		// Undo transformations
+		GL11.glRotatef(-angle.x, 1, 0, 0);
+		GL11.glRotatef(-angle.y, 0, 1, 0);
 		GL11.glTranslatef(-(x - xoff), -(y - yoff), 0);
+		GL11.glRotatef(-angle.y, 0, -1, 0);
+		GL11.glRotatef(-angle.x, -1, 0, 0);
 	}
 }

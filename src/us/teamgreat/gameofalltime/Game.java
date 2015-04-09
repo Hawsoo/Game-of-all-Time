@@ -23,6 +23,8 @@ import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector2f;
 
 import us.teamgreat.gameofalltime.engine.Camera;
 import us.teamgreat.gameofalltime.gameobject.room.BetaRoom;
@@ -46,7 +48,8 @@ public class Game
 	public float fps = 60;
 	public Dimension contextsize = new Dimension();
 	
-	public Camera camera;
+	public Camera tiltxcamera;
+	public Camera tiltycamera;
 	public InputHandler input;
 	public Room room;
 	
@@ -94,7 +97,8 @@ public class Game
 		setupOpenGLContext();
 		
 		// Setup game
-		camera = new Camera(this);
+		tiltxcamera = new Camera(new Vector2f(0, 0), new Vector2f(35, 0), this);
+		tiltycamera = new Camera(new Vector2f(0, 0), new Vector2f(0, -45), this);
 		input = new KeyboardInput();
 //		input = new ControllerInput();
 		room = new BetaRoom(this);
@@ -155,6 +159,7 @@ public class Game
 		
 		glOrtho(0, contextsize.width, 0, contextsize.height, -500, 500);
 		glMatrixMode(GL_MODELVIEW);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		
 		// Update flags
 		size.width = Display.getWidth();
@@ -194,11 +199,7 @@ public class Game
 				// Enter renderpass
 				glPushMatrix();
 				{
-					// Apply transformation
-					camera.translateView();
-					
 					// Render
-					Resources.testspr.render(0, 0);
 					room.render();
 				}
 				// Exit renderpass
