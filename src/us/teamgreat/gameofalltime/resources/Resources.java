@@ -17,6 +17,7 @@ import java.util.Hashtable;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.util.vector.Vector2f;
 
 /**
  * Packages all resources in a
@@ -30,6 +31,10 @@ public class Resources
 	public static final DisplayMode DEFAULT_SIZE = new DisplayMode(1280, 720);
 	
 	public static final String RESOURCES_DIR = "/us/teamgreat/gameofalltime/resources/";
+	
+	// Key input
+	public static Vector2f joy_position = new Vector2f();
+	public static boolean action = false, item1 = false, item2 = false, item3 = false, start = false;
 	
 	/**
 	 * Creates a bytebuffer image.
