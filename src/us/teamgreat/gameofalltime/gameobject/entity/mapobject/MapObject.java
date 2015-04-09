@@ -10,15 +10,5 @@ import us.teamgreat.gameofalltime.gameobject.entity.Entity;
  */
 public abstract class MapObject extends Entity
 {
-	@Override
-	public void update()
-	{
-		
-	}
-	
-	@Override
-	public void render()
-	{
-		
-	}
+	double hspeed, vspeed;
 }

@@ -34,7 +34,7 @@ public class Resources
 	
 	// Key input
 	public static Vector2f joy_position = new Vector2f();
-	public static boolean action = false, item1 = false, item2 = false, item3 = false, start = false;
+	public static boolean action = false, item1 = false, item2 = false, item3 = false;
 	
 	/**
 	 * Creates a bytebuffer image.
