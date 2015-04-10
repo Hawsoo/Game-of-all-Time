@@ -1,4 +1,4 @@
-import us.teamgreat.gameofalltime.Game;
+package us.teamgreat.gameofalltime;
 
 
 /**
