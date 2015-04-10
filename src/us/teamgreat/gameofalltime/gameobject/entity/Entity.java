@@ -18,7 +18,7 @@ public abstract class Entity implements GameObject
 	 * @param x
 	 * @param y
 	 */
-	public Entity(int x, int y, Game game)
+	public Entity(double x, double y, Game game)
 	{
 		this.x = x;
 		this.y = y;

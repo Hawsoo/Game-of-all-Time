@@ -23,7 +23,7 @@ public abstract class Ground extends MapObject
 	 * @param z
 	 * @param color
 	 */
-	public Ground(int x, int y, int z, Color color, Game game)
+	public Ground(double x, double y, double z, Color color, Game game)
 	{
 		super(x * Resources.BLOCK_SIZE, y * Resources.BLOCK_SIZE, z * Resources.BLOCK_SIZE, game);
 		this.color = color;

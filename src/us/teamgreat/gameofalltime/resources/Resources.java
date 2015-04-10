@@ -18,7 +18,9 @@ import java.util.Hashtable;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.openal.Audio;
 
+import us.teamgreat.gameofalltime.engine.AudioUtil;
 import us.teamgreat.gameofalltime.engine.Sprite;
 
 /**
@@ -35,6 +37,9 @@ public class Resources
 	public static final String RESOURCES_DIR = "/us/teamgreat/gameofalltime/resources/";
 	
 	public static final int BLOCK_SIZE = 32;
+	
+	// Music
+	public static Audio test_audio = AudioUtil.getAudioAsStream("music/test.ogg");
 	
 	// Sprites
 	public static Sprite testspr;

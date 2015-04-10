@@ -28,6 +28,8 @@ public abstract class Puppet extends MapObject
 	protected double height = 64;
 	protected double basesize = 24;
 	
+	private int climbheight = 3;
+	
 	/**
 	 * Creates a puppet.
 	 * @param x
@@ -108,8 +110,35 @@ public abstract class Puppet extends MapObject
 			
 			// Check for collision
 			if (isColliding((int)x + moveamount, (int)y, (int)z))
-				// Stop for it is a wall
-				hspeed = 0;
+			{
+				boolean solved = false;
+				for (int j = 1; j <= climbheight; j++)
+				{
+					// Check if there is no collision up or down
+					if (!isColliding((int)x + moveamount, (int)y, (int)z - j))
+					{
+						// Move down
+						x += moveamount;
+						z -= j;
+						
+						solved = true;
+						break;
+					}
+					else if (!isColliding((int)x + moveamount, (int)y, (int)z + j))
+					{
+						// Move up
+						x += moveamount;
+						z += j;
+						
+						solved = true;
+						break;
+					}
+				}
+				
+				if (!solved)
+					// Stop for it is a wall
+					hspeed = 0;
+			}
 			else
 				// Move along
 				x += moveamount;
@@ -121,8 +150,35 @@ public abstract class Puppet extends MapObject
 			
 			// Check for collision
 			if (isColliding((int)x, (int)y, (int)z + moveamount))
-				// Stop for it is a wall
-				vspeed = 0;
+			{
+				boolean solved = false;
+				for (int j = 1; j <= climbheight; j++)
+				{
+					// Check if there is no collision up or down
+					if (!isColliding((int)x - j, (int)y, (int)z + moveamount))
+					{
+						// Move left
+						x -= j;
+						z += moveamount;
+						
+						solved = true;
+						break;
+					}
+					else if (!isColliding((int)x + j, (int)y, (int)z + moveamount))
+					{
+						// Move right
+						x += j;
+						z += moveamount;
+						
+						solved = true;
+						break;
+					}
+				}
+				
+				if (!solved)
+					// Stop for it is a wall
+					vspeed = 0;
+			}
 			else
 				// Move along
 				z += moveamount;

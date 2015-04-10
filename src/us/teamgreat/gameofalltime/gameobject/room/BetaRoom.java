@@ -17,6 +17,8 @@ public class BetaRoom extends Room
 		
 		// Grounds
 		grounds.add(new Gnd_Regular(0, 1, 0, game));
+		grounds.add(new Gnd_Regular(1, 1, 1, game));
+		grounds.add(new Gnd_Regular(2, 1, 2, game));
 		
 		// Puppets
 		puppets.add(new Player(-32, 0, 32, grounds, game));

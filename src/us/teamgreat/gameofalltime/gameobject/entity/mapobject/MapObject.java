@@ -20,7 +20,7 @@ public abstract class MapObject extends Entity
 	 * @param y
 	 * @param z
 	 */
-	public MapObject(int x, int y, int z, Game game)
+	public MapObject(double x, double y, double z, Game game)
 	{
 		super(x, y, game);
 		this.z = z;

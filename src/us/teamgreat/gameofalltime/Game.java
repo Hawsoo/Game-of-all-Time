@@ -25,6 +25,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
+import org.newdawn.slick.openal.SoundStore;
 
 import us.teamgreat.gameofalltime.engine.Camera;
 import us.teamgreat.gameofalltime.gameobject.room.BetaRoom;
@@ -104,6 +105,9 @@ public class Game
 		room = new BetaRoom(this);
 		
 		Resources.loadTextures();
+		
+		// BETA this is
+		Resources.test_audio.playAsMusic(1.0f, 1.0f, true);
 	}
 	
 	/**
@@ -211,6 +215,9 @@ public class Game
 			
 			// Reiterate OpenGL (if changed)
 			if (size.width != Display.getWidth() || size.height != Display.getHeight()) setupOpenGLContext();
+			
+			// BETA this is
+			SoundStore.get().poll(0);
 			
 			// Update Display
 			Display.update();

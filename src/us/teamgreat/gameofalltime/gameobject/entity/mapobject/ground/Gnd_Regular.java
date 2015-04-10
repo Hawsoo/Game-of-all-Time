@@ -14,5 +14,5 @@ public class Gnd_Regular extends Ground
 	/**
 	 * Creates regular ground.
 	 */
-	public Gnd_Regular(int x, int y, int z, Game game) { super(x, y, z, Color.green, game); }
+	public Gnd_Regular(double x, double y, double z, Game game) { super(x, y, z, Color.green, game); }
 }
