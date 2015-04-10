@@ -45,6 +45,15 @@ public class Resources
 	public static Sprite testspr;
 	public static Sprite sanic_beta;
 	
+	public static Sprite player_e;
+	public static Sprite player_n;
+	public static Sprite player_ne;
+	public static Sprite player_nw;
+	public static Sprite player_s;
+	public static Sprite player_se;
+	public static Sprite player_sw;
+	public static Sprite player_w;
+	
 	// Key input
 	public static Vector2f joy_position = new Vector2f();
 	public static boolean action = false, item1 = false, item2 = false, item3 = false;
@@ -56,6 +65,15 @@ public class Resources
 	{
 		testspr = new Sprite(32, 32,"images/Untitled.png");
 		sanic_beta = new Sprite(16, 0,"images/sanic2.png");
+		
+		player_e = new Sprite(13, 0,"images/player/player_e.png");
+		player_n = new Sprite(20, 0,"images/player/player_n.png");
+		player_ne = new Sprite(17, 0,"images/player/player_ne.png");
+		player_nw = new Sprite(17, 0,"images/player/player_nw.png");
+		player_s = new Sprite(22, 0,"images/player/player_s.png");
+		player_se = new Sprite(15, 0,"images/player/player_se.png");
+		player_sw = new Sprite(15, 0,"images/player/player_sw.png");
+		player_w = new Sprite(13, 0,"images/player/player_w.png");
 	}
 	
 	/**

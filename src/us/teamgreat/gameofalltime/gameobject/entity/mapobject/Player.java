@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.util.vector.Vector2f;
 
 import us.teamgreat.gameofalltime.Game;
+import us.teamgreat.gameofalltime.engine.Sprite;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
 import us.teamgreat.gameofalltime.resources.Resources;
 
@@ -40,6 +41,45 @@ public class Player extends Puppet
 	public void render()
 	{
 		// Draw sanic
-		Resources.sanic_beta.render((int)x, (int)(z), new Vector2f());
+		Sprite spr = null;
+		if (hspeed < 0 && vspeed < 0)
+		{
+			spr = Resources.player_sw;
+		}
+		else if (hspeed > 0 && vspeed < 0)
+		{
+			spr = Resources.player_se;
+		}
+		else if (hspeed > 0 && vspeed > 0)
+		{
+			spr = Resources.player_ne;
+		}
+		else if (hspeed < 0 && vspeed > 0)
+		{
+			spr = Resources.player_nw;
+		}
+		else if (hspeed < 0)
+		{
+			spr = Resources.player_w;
+		}
+		else if (hspeed > 0)
+		{
+			spr = Resources.player_e;
+		}
+		else if (vspeed < 0)
+		{
+			spr = Resources.player_s;
+		}
+		else if (vspeed > 0)
+		{
+			spr = Resources.player_n;
+		}
+		else
+		{
+			spr = Resources.player_s;
+		}
+		
+		// Render
+		spr.render((int)x, (int)z, new Vector2f());
 	}
 }
