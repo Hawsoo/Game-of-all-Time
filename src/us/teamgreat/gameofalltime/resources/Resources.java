@@ -11,6 +11,7 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
+import java.io.File;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Hashtable;
@@ -35,24 +36,33 @@ public class Resources
 	public static final DisplayMode DEFAULT_SIZE = new DisplayMode(1280, 720);
 	
 	public static final String RESOURCES_DIR = "/us/teamgreat/gameofalltime/resources/";
+	public static final String LEVELS_ABSOLUTE_DIR = new File(System.getProperty("user.dir")).getAbsolutePath() + "\\src\\us\\teamgreat\\gameofalltime\\resources\\levels\\";
 	
-	public static final int BLOCK_SIZE = 32;
+	public static final float Z_RATIO = 0.65f;
+	public static final float GRID_WIDTH = 48;
+	public static final float GRID_HEIGHT = GRID_WIDTH * Z_RATIO;
 	
 	// Music
 	public static Audio test_audio = AudioUtil.getAudioAsStream("music/test.ogg");
 	
 	// Sprites
-	public static Sprite testspr;
-	public static Sprite sanic_beta;
+	public static Sprite testspr = new Sprite(32, 32,"images/Untitled.png");
+	public static Sprite sanic_beta = new Sprite(16, 0,"images/sanic2.png");
+
+	public static Sprite player_beta = new Sprite(24, 0, "images/playerBETA.png");
+	public static Sprite guard_beta = new Sprite(24, 0, "images/guardBETA.png");
 	
-	public static Sprite player_e;
-	public static Sprite player_n;
-	public static Sprite player_ne;
-	public static Sprite player_nw;
-	public static Sprite player_s;
-	public static Sprite player_se;
-	public static Sprite player_sw;
-	public static Sprite player_w;
+	public static Sprite block_beta = new Sprite(24, 0, "images/blocks/dirt_block.png");
+	
+	// LATER load up all player sprites
+//	public static Sprite player_e = new Sprite(13, 0,"images/player/player_e.png");
+//	public static Sprite player_n = new Sprite(20, 0,"images/player/player_n.png");
+//	public static Sprite player_ne = new Sprite(17, 0,"images/player/player_ne.png");
+//	public static Sprite player_nw = new Sprite(17, 0,"images/player/player_nw.png");
+//	public static Sprite player_s = new Sprite(22, 0,"images/player/player_s.png");
+//	public static Sprite player_se = new Sprite(15, 0,"images/player/player_se.png");
+//	public static Sprite player_sw = new Sprite(15, 0,"images/player/player_sw.png");
+//	public static Sprite player_w = new Sprite(13, 0,"images/player/player_w.png");
 	
 	// Key input
 	public static Vector2f joy_position = new Vector2f();
@@ -63,17 +73,7 @@ public class Resources
 	 */
 	public static void loadTextures()
 	{
-		testspr = new Sprite(32, 32,"images/Untitled.png");
-		sanic_beta = new Sprite(16, 0,"images/sanic2.png");
-		
-		player_e = new Sprite(13, 0,"images/player/player_e.png");
-		player_n = new Sprite(20, 0,"images/player/player_n.png");
-		player_ne = new Sprite(17, 0,"images/player/player_ne.png");
-		player_nw = new Sprite(17, 0,"images/player/player_nw.png");
-		player_s = new Sprite(22, 0,"images/player/player_s.png");
-		player_se = new Sprite(15, 0,"images/player/player_se.png");
-		player_sw = new Sprite(15, 0,"images/player/player_sw.png");
-		player_w = new Sprite(13, 0,"images/player/player_w.png");
+		Sprite.initSprites();
 	}
 	
 	/**

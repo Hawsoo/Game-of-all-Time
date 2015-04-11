@@ -11,6 +11,7 @@ import us.teamgreat.gameofalltime.gameobject.GameObject;
 import us.teamgreat.gameofalltime.gameobject.entity.Entity;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
+import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
  * Basic room for objects.
@@ -63,9 +64,9 @@ public abstract class Room implements GameObject
 	private void updateCamera()
 	{
 		int tx = (int)followobj.x;
-		int tz = (int)followobj.z;
-		double distance = MathUtil.getDistance((int)camera.pos.x, (int)camera.pos.y, tx, tz) / 10;
-		double angle = MathUtil.getAngle((int)camera.pos.x, (int)camera.pos.y, tx, tz);
+		int ty = (int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(followobj.z * Resources.Z_RATIO + followobj.y);
+		double distance = MathUtil.getDistance((int)camera.pos.x, (int)camera.pos.y, tx, ty) / 10;
+		double angle = MathUtil.getAngle((int)camera.pos.x, (int)camera.pos.y, tx, ty);
 		
 		int dx = (int) (distance * Math.cos(Math.toRadians(angle)));
 		int dy = (int) (distance * Math.sin(Math.toRadians(angle)));
@@ -98,7 +99,6 @@ public abstract class Room implements GameObject
 	public void render()
 	{
 		// Transform camera
-		game.tiltxcamera.rotateView();
 		camera.translateView();
 		
 		// Render each entity

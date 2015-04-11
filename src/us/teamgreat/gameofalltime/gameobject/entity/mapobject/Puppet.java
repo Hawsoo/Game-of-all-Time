@@ -12,7 +12,7 @@ import us.teamgreat.gameofalltime.resources.Resources;
  * Implementation of a puppet:
  * to be able to be controlled.
  * 
- * Assumed that puppets are cylinder.
+ * Assumed that puppets are rect. prisms.
  * @author Timothy Bennett
  *
  */
@@ -25,8 +25,7 @@ public abstract class Puppet extends MapObject
 	protected double maxspeed = 5;
 	protected double multiplier = 0.35;
 	
-	protected double height = 64;
-	protected double basesize = 24;
+	protected double basesize = 32;
 	
 	private int climbheight = 3;
 	
@@ -106,87 +105,91 @@ public abstract class Puppet extends MapObject
 		move();
 	}
 	
-	public void move(){
+	/**
+	 * Moves the puppet object.
+	 */
+	public void move()
+	{
 		// Move
-				for (int i = 0; i < Math.ceil(Math.abs(hspeed)); i++)
+		for (int i = 0; i < Math.ceil(Math.abs(hspeed)); i++)
+		{
+			int moveamount = (int) Math.signum(hspeed);
+			
+			// Check for collision
+			if (isColliding((int) x + moveamount, (int) y, (int) z))
+			{
+				boolean solved = false;
+				for (int j = 1; j <= climbheight; j++)
 				{
-					int moveamount = (int)Math.signum(hspeed);
-					
-					// Check for collision
-					if (isColliding((int)x + moveamount, (int)y, (int)z))
+					// Check if there is no collision up or down
+					if (!isColliding((int) x + moveamount, (int) y, (int) z - j))
 					{
-						boolean solved = false;
-						for (int j = 1; j <= climbheight; j++)
-						{
-							// Check if there is no collision up or down
-							if (!isColliding((int)x + moveamount, (int)y, (int)z - j))
-							{
-								// Move down
-								x += moveamount;
-								z -= j;
-								
-								solved = true;
-								break;
-							}
-							else if (!isColliding((int)x + moveamount, (int)y, (int)z + j))
-							{
-								// Move up
-								x += moveamount;
-								z += j;
-								
-								solved = true;
-								break;
-							}
-						}
-						
-						if (!solved)
-							// Stop for it is a wall
-							hspeed = 0;
-					}
-					else
-						// Move along
+						// Move down
 						x += moveamount;
+						z -= j;
+						
+						solved = true;
+						break;
+					}
+					else if (!isColliding((int) x + moveamount, (int) y, (int) z + j))
+					{
+						// Move up
+						x += moveamount;
+						z += j;
+						
+						solved = true;
+						break;
+					}
 				}
 				
-				for (int i = 0; i < Math.ceil(Math.abs(vspeed)); i++)
+				if (!solved)
+				// Stop for it is a wall
+					hspeed = 0;
+			}
+			else
+				// Move along
+				x += moveamount;
+		}
+		
+		for (int i = 0; i < Math.ceil(Math.abs(vspeed)); i++)
+		{
+			int moveamount = (int) Math.signum(vspeed);
+			
+			// Check for collision
+			if (isColliding((int) x, (int) y, (int) z + moveamount))
+			{
+				boolean solved = false;
+				for (int j = 1; j <= climbheight; j++)
 				{
-					int moveamount = (int)Math.signum(vspeed);
-					
-					// Check for collision
-					if (isColliding((int)x, (int)y, (int)z + moveamount))
+					// Check if there is no collision up or down
+					if (!isColliding((int) x - j, (int) y, (int) z + moveamount))
 					{
-						boolean solved = false;
-						for (int j = 1; j <= climbheight; j++)
-						{
-							// Check if there is no collision up or down
-							if (!isColliding((int)x - j, (int)y, (int)z + moveamount))
-							{
-								// Move left
-								x -= j;
-								z += moveamount;
-								
-								solved = true;
-								break;
-							}
-							else if (!isColliding((int)x + j, (int)y, (int)z + moveamount))
-							{
-								// Move right
-								x += j;
-								z += moveamount;
-								
-								solved = true;
-								break;
-							}
-						}
-						
-						if (!solved)
-							// Stop for it is a wall
-							vspeed = 0;
-					}
-					else
-						// Move along
+						// Move left
+						x -= j;
 						z += moveamount;
+						
+						solved = true;
+						break;
+					}
+					else if (!isColliding((int) x + j, (int) y, (int) z + moveamount))
+					{
+						// Move right
+						x += j;
+						z += moveamount;
+						
+						solved = true;
+						break;
+					}
 				}
+				
+				if (!solved)
+				// Stop for it is a wall
+					vspeed = 0;
+			}
+			else
+				// Move along
+				z += moveamount;
+		}
 	}
 	
 	/**
@@ -223,7 +226,7 @@ public abstract class Puppet extends MapObject
 	private boolean checkCollision(int x, int y, int z, Rectangle bounds, Ground ground)
 	{
 		// Check out (if not within y bounds)
-		if (!(ground.y - Resources.BLOCK_SIZE < y + height && ground.y > y)) return false;
+		/*if (!(ground.y - Resources.BLOCK_SIZE < y + height && ground.y > y)) return false;
 		
 		// Get width and height of block
 		double width = Resources.BLOCK_SIZE * Math.cos(Math.toRadians(45));
@@ -242,7 +245,7 @@ public abstract class Puppet extends MapObject
 		if (lineNE.intersects(bounds)) return true;
 		if (lineNW.intersects(bounds)) return true;
 		if (lineSE.intersects(bounds)) return true;
-		if (lineSW.intersects(bounds)) return true;
+		if (lineSW.intersects(bounds)) return true;*/
 		
 		return false;
 	}

@@ -49,8 +49,6 @@ public class Game
 	public float fps = 60;
 	public Dimension contextsize = new Dimension();
 	
-	public Camera tiltxcamera;
-	public Camera tiltycamera;
 	public InputHandler input;
 	public Room room;
 	
@@ -98,8 +96,6 @@ public class Game
 		setupOpenGLContext();
 		
 		// Setup game
-		tiltxcamera = new Camera(new Vector2f(0, 0), new Vector2f(35, 0), this);
-		tiltycamera = new Camera(new Vector2f(0, 0), new Vector2f(0, -45), this);
 		input = new KeyboardInput();
 //		input = new ControllerInput();
 		room = new BetaRoom(this);
@@ -107,7 +103,7 @@ public class Game
 		Resources.loadTextures();
 		
 		// BETA this is
-		Resources.test_audio.playAsMusic(1.0f, 1.0f, true);
+//		Resources.test_audio.playAsMusic(1.0f, 1.0f, true);
 	}
 	
 	/**
@@ -217,7 +213,7 @@ public class Game
 			if (size.width != Display.getWidth() || size.height != Display.getHeight()) setupOpenGLContext();
 			
 			// BETA this is
-			SoundStore.get().poll(0);
+//			SoundStore.get().poll(0);
 			
 			// Update Display
 			Display.update();

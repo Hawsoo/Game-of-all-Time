@@ -2,10 +2,9 @@ package us.teamgreat.gameofalltime.gameobject.entity.mapobject;
 
 import java.util.ArrayList;
 
-import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.opengl.GL11;
 
 import us.teamgreat.gameofalltime.Game;
-import us.teamgreat.gameofalltime.engine.Sprite;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
 import us.teamgreat.gameofalltime.resources.Resources;
 
@@ -41,7 +40,7 @@ public class Player extends Puppet
 	public void render()
 	{
 		// Draw sanic
-		Sprite spr = null;
+		/*Sprite spr = null;
 		if (hspeed < 0 && vspeed < 0)
 		{
 			spr = Resources.player_sw;
@@ -77,9 +76,10 @@ public class Player extends Puppet
 		else
 		{
 			spr = Resources.player_s;
-		}
+		}*/
 		
 		// Render
-		spr.render((int)x, (int)z, new Vector2f());
+		GL11.glColor3f(1, 1, 1);
+		Resources.player_beta.render((int)x, (int)(z * Resources.Z_RATIO + y));
 	}
 }

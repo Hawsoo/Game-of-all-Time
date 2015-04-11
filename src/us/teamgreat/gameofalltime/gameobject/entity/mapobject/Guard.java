@@ -2,6 +2,7 @@ package us.teamgreat.gameofalltime.gameobject.entity.mapobject;
 
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 
 import us.teamgreat.gameofalltime.Game;
@@ -9,6 +10,12 @@ import us.teamgreat.gameofalltime.engine.Sprite;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
 import us.teamgreat.gameofalltime.resources.Resources;
 
+/**
+ * The guard that follows a set path, but
+ * can get possessed.
+ * @author Noah Brown, Timothy Bennett
+ *
+ */
 public class Guard extends Puppet
 {
 	
@@ -20,7 +27,7 @@ public class Guard extends Puppet
 	 * @param game
 	 */
 	
-	//path of points
+	// Path of points
 	ArrayList<Vector2f> points = new ArrayList<Vector2f>();
 
 	
@@ -30,21 +37,32 @@ public class Guard extends Puppet
 		this.isPossessed = true;
 	}
 	
+	/**
+	 * Adds a path point.
+	 * @param x
+	 * @param z
+	 */
+	public void addPathPoint(double x, double z)
+	{
+		Vector2f point = new Vector2f((float) x,(float) z);
+		points.add(point);
+	}
+	
 	@Override
 	public void normalUpdate()
-	{	
-		// Stand and do nothing
-		hspeed = vspeed = 0;
-		for(Vector2f point: points){
+	{
+		for (Vector2f point : points)
+		{
 			double dx = x - point.getX();
 			double dz = z - point.getY();
 			boolean run = true;
-			while((dx!=0 && dz!=0) || run){
+			while ((dx != 0 && dz != 0) || run)
+			{
 				dx = x - point.getX();
 				dz = z - point.getY();
-				double dtotal = Math.sqrt(dx*dx + dz*dz);
-				hspeed = dx/dtotal;
-				vspeed = dz/dtotal;
+				double dtotal = Math.sqrt(dx * dx + dz * dz);
+				hspeed = dx / dtotal;
+				vspeed = dz / dtotal;
 				move();
 				
 				run = false;
@@ -56,7 +74,7 @@ public class Guard extends Puppet
 	public void render()
 	{
 		// Draw guard
-		Sprite spr = null;
+		/*Sprite spr = null;
 		if (hspeed < 0 && vspeed < 0)
 		{
 			spr = Resources.player_sw;
@@ -92,15 +110,10 @@ public class Guard extends Puppet
 		else
 		{
 			spr = Resources.player_s;
-		}
+		}*/
 		
 		// Render
-		spr.render((int)x, (int)z, new Vector2f());
+		GL11.glColor3f(1, 1, 1);
+		Resources.guard_beta.render((int)x, (int)(z * Resources.Z_RATIO + y));
 	}
-	
-	public void addPathPoint(double x, double z){
-		Vector2f point = new Vector2f((float) x,(float) z);
-		points.add(point);
-	}
-
 }

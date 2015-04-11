@@ -1,9 +1,9 @@
 package us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground;
 
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
 
 import us.teamgreat.gameofalltime.Game;
+import us.teamgreat.gameofalltime.engine.Sprite;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
 import us.teamgreat.gameofalltime.resources.Resources;
 
@@ -14,7 +14,7 @@ import us.teamgreat.gameofalltime.resources.Resources;
  */
 public abstract class Ground extends MapObject
 {
-	private Color color;
+	private Sprite sprite;
 	
 	/**
 	 * Creates a ground.
@@ -23,10 +23,10 @@ public abstract class Ground extends MapObject
 	 * @param z
 	 * @param color
 	 */
-	public Ground(double x, double y, double z, Color color, Game game)
+	public Ground(double x, double y, double z, Sprite sprite, Game game)
 	{
-		super(x * Resources.BLOCK_SIZE, y * Resources.BLOCK_SIZE, z * Resources.BLOCK_SIZE, game);
-		this.color = color;
+		super(x, y, z, game);
+		this.sprite = sprite;
 	}
 	
 	@Override
@@ -35,18 +35,20 @@ public abstract class Ground extends MapObject
 	@Override
 	public void render()
 	{
+		// Render
+		GL11.glColor3f(1, 1, 1);
+		sprite.render((int)x, (int)(z * Resources.Z_RATIO + y));
+		
 		// Disable textures
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		/*GL11.glDisable(GL11.GL_TEXTURE_2D);
 		{
 			// Render rectangle
-			color.bind();
+//			sprite.getTexture().bind();
 			
 			// Apply transformations
-			GL11.glTranslated(x, y, z);
-			game.tiltycamera.rotateView();
-			GL11.glScalef(Resources.BLOCK_SIZE, Resources.BLOCK_SIZE, Resources.BLOCK_SIZE);
+			/*GL11.glTranslated(x, y, z);
 			{
-				GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
+				/*GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
 				GL11.glBegin(GL11.GL_QUADS);
 				{
 					// Top
@@ -67,13 +69,15 @@ public abstract class Ground extends MapObject
 					GL11.glVertex3f(1, -1, 0);
 					GL11.glVertex3f(1, -1, -1);
 				}
-				GL11.glEnd();
+				GL11.glEnd();* /
+				
+				sprite.render(0, 0);
 			}
-			GL11.glScalef(1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE, 1f / Resources.BLOCK_SIZE);
-			game.tiltycamera.undoRotation();
-			GL11.glTranslated(-x, -y, -z);
+			GL11.glTranslated(-x, -y, -z);* /
+			
+			
 		}
 		// Re-enable textures
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);*/
 	}
 }
