@@ -8,10 +8,10 @@ import java.util.EnumSet;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -25,6 +25,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import us.teamgreat.MainClass;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
 import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 import us.teamgreat.isoleveleditor.engine.util.EditorIO;
@@ -41,6 +42,7 @@ public class PropertiesWindow extends JDialog
 	
 	private JPanel contentPane;
 	private JCheckBoxMenuItem chckbxmntmYdepth;
+	private JCheckBoxMenuItem chckbxmntmFocusJustPuppets;
 	private JCheckBoxMenuItem chckbxmntmAstheticDesign;
 	private JCheckBoxMenuItem chckbxmntmWallDesign;
 	private JCheckBoxMenuItem chckbxmntmEventDesign;
@@ -51,6 +53,14 @@ public class PropertiesWindow extends JDialog
 	
 	private JComboBox<LE_Entities> cmbEntityType;
 	private JSlider sldVerticalRange;
+	private JRadioButton rdbtnNW;
+	private JRadioButton rdbtnN;
+	private JRadioButton rdbtnNE;
+	private JRadioButton rdbtnW;
+	private JRadioButton rdbtnE;
+	private JRadioButton rdbtnSE;
+	private JRadioButton rdbtnS;
+	private JRadioButton rdbtnSW;
 	
 	/**
 	 * Create the frame.
@@ -170,6 +180,21 @@ public class PropertiesWindow extends JDialog
 			mnView.add(chckbxmntmYdepth);
 		}
 		
+		chckbxmntmFocusJustPuppets = new JCheckBoxMenuItem("Focus just on puppets (ignore selection on any other object)");
+		{
+			chckbxmntmFocusJustPuppets.setSelected(false);
+			chckbxmntmFocusJustPuppets.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					// Update variable
+					LE_Resources.focusPuppets = chckbxmntmFocusJustPuppets.isSelected();
+				}
+			});
+			mnView.add(chckbxmntmFocusJustPuppets);
+		}
+		
 		mnView.addSeparator();
 		
 		chckbxmntmAstheticDesign = new JCheckBoxMenuItem("Asthetic Design");
@@ -226,6 +251,7 @@ public class PropertiesWindow extends JDialog
 		
 		// Entity type
 		cmbEntityType = new JComboBox<LE_Entities>();
+		sl_contentPane.putConstraint(SpringLayout.WEST, cmbEntityType, 10, SpringLayout.WEST, contentPane);
 		{
 			// Add in entries
 			EnumSet<LE_Entities> entities = EnumSet.allOf(LE_Entities.class);
@@ -246,16 +272,7 @@ public class PropertiesWindow extends JDialog
 			LE_Resources.currentmodel = cmbEntityType.getItemAt(0);
 			
 			sl_contentPane.putConstraint(SpringLayout.NORTH, cmbEntityType, 10, SpringLayout.NORTH, contentPane);
-			sl_contentPane.putConstraint(SpringLayout.WEST, cmbEntityType, 10, SpringLayout.WEST, contentPane);
 			contentPane.add(cmbEntityType);
-		}
-		
-		// Event Description
-		JButton btnSetEventDescription = new JButton("Set Event Description");
-		sl_contentPane.putConstraint(SpringLayout.WEST, btnSetEventDescription, 10, SpringLayout.WEST, contentPane);
-		{
-			sl_contentPane.putConstraint(SpringLayout.EAST, cmbEntityType, 0, SpringLayout.EAST, btnSetEventDescription);
-			contentPane.add(btnSetEventDescription);
 		}
 		
 		// Room designs
@@ -329,6 +346,9 @@ public class PropertiesWindow extends JDialog
 		
 		// Vertical 'y' slider
 		sldVerticalRange = new JSlider();
+		sl_contentPane.putConstraint(SpringLayout.WEST, sldVerticalRange, 155, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, sldVerticalRange, -10, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, cmbEntityType, -10, SpringLayout.WEST, sldVerticalRange);
 		{
 			sldVerticalRange.addChangeListener(new ChangeListener()
 			{
@@ -345,12 +365,162 @@ public class PropertiesWindow extends JDialog
 			sldVerticalRange.setValue(0);
 			
 			LE_Resources.yVal = sldVerticalRange.getValue();
-			
-			sl_contentPane.putConstraint(SpringLayout.SOUTH, btnSetEventDescription, 0, SpringLayout.SOUTH, sldVerticalRange);
-			sl_contentPane.putConstraint(SpringLayout.WEST, sldVerticalRange, 10, SpringLayout.EAST, btnSetEventDescription);
 			sl_contentPane.putConstraint(SpringLayout.NORTH, sldVerticalRange, 10, SpringLayout.NORTH, contentPane);
-			sl_contentPane.putConstraint(SpringLayout.EAST, sldVerticalRange, -10, SpringLayout.EAST, contentPane);
 			contentPane.add(sldVerticalRange);
+		}
+		
+		// Set up directional properties
+		JLabel lblDirection = new JLabel("Direction:");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, lblDirection, 6, SpringLayout.SOUTH, rdbtnEventDesign);
+		sl_contentPane.putConstraint(SpringLayout.WEST, lblDirection, 0, SpringLayout.WEST, cmbEntityType);
+		contentPane.add(lblDirection);
+		
+		ButtonGroup directiongroup = new ButtonGroup();
+		{
+			rdbtnNW = new JRadioButton("");
+			{
+				rdbtnNW.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_NW;
+					}
+				});
+				
+				sl_contentPane.putConstraint(SpringLayout.NORTH, rdbtnNW, 6, SpringLayout.SOUTH, lblDirection);
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnNW, 0, SpringLayout.WEST, cmbEntityType);
+				directiongroup.add(rdbtnNW);
+				contentPane.add(rdbtnNW);
+			}
+			
+			rdbtnN = new JRadioButton("");
+			{
+				rdbtnN.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_N;
+					}
+				});
+				
+				sl_contentPane.putConstraint(SpringLayout.NORTH, rdbtnN, 6, SpringLayout.SOUTH, lblDirection);
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnN, 6, SpringLayout.EAST, rdbtnNW);
+				directiongroup.add(rdbtnN);
+				contentPane.add(rdbtnN);
+			}
+			
+			rdbtnNE = new JRadioButton("");
+			{
+				rdbtnNE.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_NE;
+					}
+				});
+				
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnNE, 6, SpringLayout.EAST, rdbtnN);
+				sl_contentPane.putConstraint(SpringLayout.SOUTH, rdbtnNE, 0, SpringLayout.SOUTH, rdbtnNW);
+				directiongroup.add(rdbtnNE);
+				contentPane.add(rdbtnNE);
+			}
+			
+			rdbtnW = new JRadioButton("");
+			{
+				rdbtnW.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_W;
+					}
+				});
+				
+				sl_contentPane.putConstraint(SpringLayout.NORTH, rdbtnW, 6, SpringLayout.SOUTH, rdbtnNW);
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnW, 0, SpringLayout.WEST, cmbEntityType);
+				directiongroup.add(rdbtnW);
+				contentPane.add(rdbtnW);
+			}
+			
+			rdbtnE = new JRadioButton("");
+			{
+				rdbtnE.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_E;
+					}
+				});
+				
+				sl_contentPane.putConstraint(SpringLayout.NORTH, rdbtnE, 6, SpringLayout.SOUTH, rdbtnNE);
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnE, 0, SpringLayout.WEST, rdbtnNE);
+				directiongroup.add(rdbtnE);
+				contentPane.add(rdbtnE);
+			}
+			
+			rdbtnSE = new JRadioButton("");
+			{
+				rdbtnSE.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_SE;
+					}
+				});
+				
+				sl_contentPane.putConstraint(SpringLayout.NORTH, rdbtnSE, 6, SpringLayout.SOUTH, rdbtnE);
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnSE, 0, SpringLayout.WEST, rdbtnNE);
+				directiongroup.add(rdbtnSE);
+				contentPane.add(rdbtnSE);
+			}
+			
+			rdbtnS = new JRadioButton("");
+			{
+				rdbtnS.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_S;
+					}
+				});
+				
+				rdbtnS.setSelected(true);
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnS, 0, SpringLayout.WEST, rdbtnN);
+				sl_contentPane.putConstraint(SpringLayout.SOUTH, rdbtnS, 0, SpringLayout.SOUTH, rdbtnSE);
+				directiongroup.add(rdbtnS);
+				contentPane.add(rdbtnS);
+			}
+			
+			rdbtnSW = new JRadioButton("");
+			{
+				rdbtnSW.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						// Update Resources
+						LE_Resources.currentdirection = Puppet.DIR_SW;
+					}
+				});
+				
+				sl_contentPane.putConstraint(SpringLayout.WEST, rdbtnSW, 0, SpringLayout.WEST, cmbEntityType);
+				sl_contentPane.putConstraint(SpringLayout.SOUTH, rdbtnSW, 0, SpringLayout.SOUTH, rdbtnSE);
+				directiongroup.add(rdbtnSW);
+				contentPane.add(rdbtnSW);
+			}
 		}
 	}
 }

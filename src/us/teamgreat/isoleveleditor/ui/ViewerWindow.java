@@ -15,6 +15,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import us.teamgreat.MainClass;
+import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;
 import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 import us.teamgreat.isoleveleditor.resources.LE_Resources;
@@ -140,10 +141,14 @@ public class ViewerWindow
 					int i = entities.size() - 1;
 					for (; i >= 0; i--)
 					{
-						if (entities.get(i).isColliding(new Point(x, z)))
+						// Only focus on important entities
+						if (!LE_Resources.focusPuppets || entities.get(i).getModel().getEntityType() == LE_Entities.PUPPET_ENTITY)
 						{
-							colliding = true;
-							break;
+							if (entities.get(i).isColliding(new Point(x, z)))
+							{
+								colliding = true;
+								break;
+							}
 						}
 					}
 					
@@ -160,8 +165,12 @@ public class ViewerWindow
 					// Create object
 					else
 					{
-						// Create object
-						entities.add(new LE_Entity(LE_Resources.currentmodel, new Vector3f(x, LE_Resources.yVal, z)));
+						// Only focus on important entities
+						if (!LE_Resources.focusPuppets || LE_Resources.currentmodel.getEntityType() == LE_Entities.PUPPET_ENTITY)
+						{
+							// Create object
+							entities.add(new LE_Entity(LE_Resources.currentmodel, new Vector3f(x, LE_Resources.yVal, z)));
+						}
 					}
 				}
 				
@@ -219,6 +228,17 @@ public class ViewerWindow
 					for (LE_Entity entity : selectedEntities)
 					{
 						entity.type = LE_Resources.currenttype;
+					}
+				}
+				
+				if (LE_Resources.directionChanged)
+				{
+					LE_Resources.directionChanged = false;
+					
+					// Change selected objects' direction
+					for (LE_Entity entity : selectedEntities)
+					{
+						entity.direction = LE_Resources.currentdirection;
 					}
 				}
 				
@@ -310,8 +330,10 @@ public class ViewerWindow
 		ViewerWindow.entities = new ArrayList<LE_Entity>(Arrays.asList(entities));
 		
 		// Render the ordered list
-		for (LE_Entity entity : ViewerWindow.entities)
+		for (int i2 = 0; i2 < ViewerWindow.entities.size(); i2++)
 		{
+			LE_Entity entity = ViewerWindow.entities.get(i2);
+			
 			boolean render = false;
 			LE_EntityTypes type = entity.type;
 			

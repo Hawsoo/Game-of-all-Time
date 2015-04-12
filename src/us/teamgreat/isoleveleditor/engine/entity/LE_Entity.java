@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
 import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**
@@ -18,6 +19,8 @@ public class LE_Entity
 	private Vector3f pos;
 	
 	public LE_EntityTypes type;
+	
+	public int direction = Puppet.DIR_S;		// Uses Puppet.class implementation
 	
 	/**
 	 * Creates an entity from a model from entities.

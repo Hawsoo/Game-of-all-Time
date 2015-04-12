@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
 import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;
@@ -64,8 +65,15 @@ public class EditorIO
 						// Interpret part 2 (entity type ID)
 						LE_EntityTypes type = LE_EntityTypes.getEntityType(Integer.parseInt(parts[2]));
 						
+						// Interpret part 3 (entity direction)
+						int dir = Puppet.DIR_S;
+						if (parts.length >= 3)
+							dir = Integer.parseInt(parts[3]);
+						
 						// Create object
-						ViewerWindow.entities.add(new LE_Entity(model, pos, type));
+						LE_Entity obj = new LE_Entity(model, pos, type);
+						obj.direction = dir;
+						ViewerWindow.entities.add(obj);
 					}
 				}
 				br.close();
@@ -109,7 +117,8 @@ public class EditorIO
 					Vector3f pos = entity.getPosition();
 					bw.write(entity.getModel().getID() + "\t" +
 							pos.x + "," + pos.y + "," + pos.z + "\t" +
-							entity.type.getID());
+							entity.type.getID() + "\t" +
+							entity.direction);
 					bw.newLine();
 				}
 			}

@@ -21,6 +21,7 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.openal.Audio;
 
+import us.teamgreat.gameofalltime.engine.Animation;
 import us.teamgreat.gameofalltime.engine.AudioUtil;
 import us.teamgreat.gameofalltime.engine.Sprite;
 
@@ -52,17 +53,96 @@ public class Resources
 	public static Sprite player_beta = new Sprite(24, 0, "images/playerBETA.png");
 	public static Sprite guard_beta = new Sprite(24, 0, "images/guardBETA.png");
 	
-	public static Sprite block_beta = new Sprite(24, 0, "images/blocks/dirt_block.png");
+	public static Sprite block_beta = new Sprite(24, 50, "images/blocks/dirt_block.png");
 	
-	// LATER load up all player sprites
-//	public static Sprite player_e = new Sprite(13, 0,"images/player/player_e.png");
-//	public static Sprite player_n = new Sprite(20, 0,"images/player/player_n.png");
-//	public static Sprite player_ne = new Sprite(17, 0,"images/player/player_ne.png");
-//	public static Sprite player_nw = new Sprite(17, 0,"images/player/player_nw.png");
-//	public static Sprite player_s = new Sprite(22, 0,"images/player/player_s.png");
-//	public static Sprite player_se = new Sprite(15, 0,"images/player/player_se.png");
-//	public static Sprite player_sw = new Sprite(15, 0,"images/player/player_sw.png");
-//	public static Sprite player_w = new Sprite(13, 0,"images/player/player_w.png");
+	public static Sprite path_node = new Sprite(24, 50, "images/blocks/path_node.png");
+	
+	public static Sprite guard_icon = new Sprite(18, 0, "images/guard/gS.png");
+	
+	
+	// Load up all player sprites
+	private static final int frameSize = 3;
+	
+	public static Sprite player_e_l = new Sprite(13, 0, "images/player/pE_l.png");
+	public static Sprite player_e_r = new Sprite(13, 0, "images/player/pE_r.png");
+	public static Sprite player_e = new Sprite(13, 0, "images/player/pE.png");
+	public static Animation player_ani_e = new Animation(frameSize, player_e, player_e_l, player_e, player_e_r);
+	
+	public static Sprite player_n_l = new Sprite(13, 0, "images/player/pN_l.png");
+	public static Sprite player_n_r = new Sprite(13, 0, "images/player/pN_r.png");
+	public static Sprite player_n = new Sprite(13, 0, "images/player/pN.png");
+	public static Animation player_ani_n = new Animation(frameSize, player_n, player_n_l, player_n, player_n_r);
+	
+	public static Sprite player_ne_l = new Sprite(13, 0, "images/player/pNE_l.png");
+	public static Sprite player_ne_r = new Sprite(13, 0, "images/player/pNE_r.png");
+	public static Sprite player_ne = new Sprite(13, 0, "images/player/pNE.png");
+	public static Animation player_ani_ne = new Animation(frameSize, player_ne, player_ne_l, player_ne, player_ne_r);
+	
+	public static Sprite player_nw_l = new Sprite(13, 0, "images/player/pNW_l.png");
+	public static Sprite player_nw_r = new Sprite(13, 0, "images/player/pNW_r.png");
+	public static Sprite player_nw = new Sprite(13, 0, "images/player/pNW.png");
+	public static Animation player_ani_nw = new Animation(frameSize, player_nw, player_nw_l, player_nw, player_nw_r);
+	
+	public static Sprite player_s_l = new Sprite(13, 0, "images/player/pS_l.png");
+	public static Sprite player_s_r = new Sprite(13, 0, "images/player/pS_r.png");
+	public static Sprite player_s = new Sprite(13, 0, "images/player/pS.png");
+	public static Animation player_ani_s = new Animation(frameSize, player_s, player_s_l, player_s, player_s_r);
+	
+	public static Sprite player_se_l = new Sprite(13, 0, "images/player/pSE_l.png");
+	public static Sprite player_se_r = new Sprite(13, 0, "images/player/pSE_r.png");
+	public static Sprite player_se = new Sprite(13, 0, "images/player/pSE.png");
+	public static Animation player_ani_se = new Animation(frameSize, player_se, player_se_l, player_se, player_se_r);
+	
+	public static Sprite player_sw_l = new Sprite(13, 0, "images/player/pSW_l.png");
+	public static Sprite player_sw_r = new Sprite(13, 0, "images/player/pSW_r.png");
+	public static Sprite player_sw = new Sprite(13, 0, "images/player/pSW.png");
+	public static Animation player_ani_sw = new Animation(frameSize, player_sw, player_sw_l, player_sw, player_sw_r);
+	
+	public static Sprite player_w_l = new Sprite(13, 0, "images/player/pW_l.png");
+	public static Sprite player_w_r = new Sprite(13, 0, "images/player/pW_r.png");
+	public static Sprite player_w = new Sprite(13, 0, "images/player/pW.png");
+	public static Animation player_ani_w = new Animation(frameSize, player_w, player_w_l, player_w, player_w_r);
+	
+	// Load up all guard sprites
+	public static Sprite guard_e_l = new Sprite(15, 0, "images/guard/gE_l.png");
+	public static Sprite guard_e_r = new Sprite(15, 0, "images/guard/gE_r.png");
+	public static Sprite guard_e = new Sprite(15, 0, "images/guard/gE.png");
+	public static Animation guard_ani_e = new Animation(frameSize, guard_e, guard_e_l, guard_e, guard_e_r);
+
+	public static Sprite guard_n_l = new Sprite(15, 0, "images/guard/gN_l.png");
+	public static Sprite guard_n_r = new Sprite(15, 0, "images/guard/gN_r.png");
+	public static Sprite guard_n = new Sprite(15, 0, "images/guard/gN.png");
+	public static Animation guard_ani_n = new Animation(frameSize, guard_n, guard_n_l, guard_n, guard_n_r);
+
+	public static Sprite guard_ne_l = new Sprite(15, 0, "images/guard/gNE_l.png");
+	public static Sprite guard_ne_r = new Sprite(15, 0, "images/guard/gNE_r.png");
+	public static Sprite guard_ne = new Sprite(15, 0, "images/guard/gNE.png");
+	public static Animation guard_ani_ne = new Animation(frameSize, guard_ne, guard_ne_l, guard_ne, guard_ne_r);
+
+	public static Sprite guard_nw_l = new Sprite(15, 0, "images/guard/gNW_l.png");
+	public static Sprite guard_nw_r = new Sprite(15, 0, "images/guard/gNW_r.png");
+	public static Sprite guard_nw = new Sprite(15, 0, "images/guard/gNW.png");
+	public static Animation guard_ani_nw = new Animation(frameSize, guard_nw, guard_nw_l, guard_nw, guard_nw_r);
+
+	public static Sprite guard_s_l = new Sprite(15, 0, "images/guard/gS_l.png");
+	public static Sprite guard_s_r = new Sprite(15, 0, "images/guard/gS_r.png");
+	public static Sprite guard_s = new Sprite(15, 0, "images/guard/gS.png");
+	public static Animation guard_ani_s = new Animation(frameSize, guard_s, guard_s_l, guard_s, guard_s_r);
+
+	public static Sprite guard_se_l = new Sprite(15, 0, "images/guard/gSE_l.png");
+	public static Sprite guard_se_r = new Sprite(15, 0, "images/guard/gSE_r.png");
+	public static Sprite guard_se = new Sprite(15, 0, "images/guard/gSE.png");
+	public static Animation guard_ani_se = new Animation(frameSize, guard_se, guard_se_l, guard_se, guard_se_r);
+
+	public static Sprite guard_sw_l = new Sprite(15, 0, "images/guard/gSW_l.png");
+	public static Sprite guard_sw_r = new Sprite(15, 0, "images/guard/gSW_r.png");
+	public static Sprite guard_sw = new Sprite(15, 0, "images/guard/gSW.png");
+	public static Animation guard_ani_sw = new Animation(frameSize, guard_sw, guard_sw_l, guard_sw, guard_sw_r);
+
+	public static Sprite guard_w_l = new Sprite(15, 0, "images/guard/gW_l.png");
+	public static Sprite guard_w_r = new Sprite(15, 0, "images/guard/gW_r.png");
+	public static Sprite guard_w = new Sprite(15, 0, "images/guard/gW.png");
+	public static Animation guard_ani_w = new Animation(frameSize, guard_w, guard_w_l, guard_w, guard_w_r);
 	
 	// Key input
 	public static Vector2f joy_position = new Vector2f();

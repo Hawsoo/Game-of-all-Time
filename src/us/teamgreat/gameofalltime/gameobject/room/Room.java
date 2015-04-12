@@ -59,9 +59,10 @@ public class Room implements GameObject
 	 */
 	public static Room loadRoom(String name, Game game, Runnable roomscript) throws IOException
 	{
+		// FIXME make file reader read from within jar file
 		// Check if file exists
 		File file;
-		if ((file = new File(Resources.RESOURCES_DIR + name)).exists())
+		if ((file = new File(Resources.RESOURCES_DIR + "levels/" + name)).exists())
 		{
 			// Create initial room
 			Room room = new Room(name, game);
@@ -91,7 +92,7 @@ public class Room implements GameObject
 					if (type == LE_EntityTypes.ASTHETIC_ENTITY)
 					{
 						// Sort if entity is a regular entity or a puppet
-						if (model.getType() == LE_Entities.PUPPET_ENTITY)
+						if (model.getEntityType() == LE_Entities.PUPPET_ENTITY)
 						{
 							room.puppets.add(model.instantiatePuppet((int)pos.x, (int)pos.y, (int)pos.z, room.collisions, game));
 						}

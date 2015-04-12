@@ -18,7 +18,17 @@ import us.teamgreat.gameofalltime.resources.Resources;
  */
 public abstract class Puppet extends MapObject
 {
+	public static final int DIR_N = 8;
+	public static final int DIR_NE = 9;
+	public static final int DIR_E = 6;
+	public static final int DIR_SE = 3;
+	public static final int DIR_S = 2;
+	public static final int DIR_SW = 1;
+	public static final int DIR_W = 4;
+	public static final int DIR_NW = 7;
+	
 	public boolean isPossessed = false;
+	public int direction;
 	
 	protected ArrayList<Collision> collisions;
 	
@@ -36,12 +46,13 @@ public abstract class Puppet extends MapObject
 	 * @param z
 	 * @param game
 	 */
-	public Puppet(int x, int y, int z, double maxspeed, double accelerationMult, ArrayList<Collision> collisions, Game game)
+	public Puppet(int x, int y, int z, double maxspeed, double accelerationMult, int direction, ArrayList<Collision> collisions, Game game)
 	{
 		super(x, y, z, game);
 		
 		this.maxspeed = maxspeed;
 		this.multiplier = accelerationMult;
+		this.direction = direction;
 		this.collisions = collisions;
 	}
 
@@ -102,6 +113,7 @@ public abstract class Puppet extends MapObject
 		if (Math.abs(hspeed) > maxspeed) hspeed = maxspeed * Math.signum(hspeed);
 		if (Math.abs(vspeed) > maxspeed) vspeed = maxspeed * Math.signum(vspeed);
 		
+		// Move
 		move();
 	}
 	
@@ -110,6 +122,24 @@ public abstract class Puppet extends MapObject
 	 */
 	public void move()
 	{
+		// Update facing direction
+		if (hspeed < 0 && vspeed < 0)
+			direction = DIR_SW;
+		else if (hspeed > 0 && vspeed < 0)
+			direction = DIR_SE;
+		else if (hspeed > 0 && vspeed > 0)
+			direction = DIR_NE;
+		else if (hspeed < 0 && vspeed > 0)
+			direction = DIR_NW;
+		else if (hspeed < 0)
+			direction = DIR_W;
+		else if (hspeed > 0)
+			direction = DIR_E;
+		else if (vspeed < 0)
+			direction = DIR_S;
+		else if (vspeed > 0)
+			direction = DIR_N;
+		
 		// Move
 		for (int i = 0; i < Math.ceil(Math.abs(hspeed)); i++)
 		{

@@ -6,6 +6,7 @@ import java.util.EnumSet;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Sprite;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Guard;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.resources.Resources;
@@ -19,7 +20,15 @@ import us.teamgreat.isoleveleditor.resources.LE_Resources;
 public enum LE_Entities
 {
 	// HERESTO add Entities
-	GND_REG("Ground Regular", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW);
+	GND_REG("Ground Regular", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	GND_REG_V2("Ground Regular v2", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	WALL("Wall", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	WALL_V2("Wall v2", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	WALL_V3("Wall v3", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	WALL_INV("Wall Invisible", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	PATH_NODE("Path Node", Resources.path_node, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	PUPPET_GUARD("Guard Puppet", Resources.guard_icon, LE_Resources.GUARD_SILHOUETTE, Resources.guard_beta, Guard.class);
+	
 	
 	public static final int REGULAR_ENTITY = 1;
 	public static final int PUPPET_ENTITY = 2;
@@ -107,7 +116,7 @@ public enum LE_Entities
 	 * Gets the model type.
 	 * @return
 	 */
-	public int getType()
+	public int getEntityType()
 	{
 		return entitytype;
 	}
