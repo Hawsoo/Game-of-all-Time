@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import us.teamgreat.isoleveleditor.resources.Resources;
+import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**
  * Basic shell of an entity for use in the
@@ -12,24 +12,24 @@ import us.teamgreat.isoleveleditor.resources.Resources;
  * @author Noah Brown, Timothy Bennett
  *
  */
-public class Entity
+public class LE_Entity
 {
-	private Entities model;
+	private LE_Entities model;
 	private Vector3f pos;
 	
-	public EntityTypes type;
+	public LE_EntityTypes type;
 	
 	/**
 	 * Creates an entity from a model from entities.
 	 * @param model
 	 * @param pos
 	 */
-	public Entity(Entities model, Vector3f pos)
+	public LE_Entity(LE_Entities model, Vector3f pos)
 	{
 		this.model = model;
 		this.pos = pos;
 		
-		type = Resources.currenttype;
+		type = LE_Resources.currenttype;
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class Entity
 	 * @param pos
 	 * @param type
 	 */
-	public Entity(Entities model, Vector3f pos, EntityTypes type)
+	public LE_Entity(LE_Entities model, Vector3f pos, LE_EntityTypes type)
 	{
 		this.model = model;
 		this.pos = pos;
@@ -62,7 +62,7 @@ public class Entity
 	 * Gets the model of the entity.
 	 * @return
 	 */
-	public Entities getModel()
+	public LE_Entities getModel()
 	{
 		return model;
 	}

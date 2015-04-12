@@ -2,14 +2,14 @@ package us.teamgreat.isoleveleditor.engine.entity;
 
 import java.util.EnumSet;
 
-import us.teamgreat.isoleveleditor.resources.Resources;
+import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**
  * Types of entities.
  * @author Noah Brown, Timothy Bennett
  *
  */
-public enum EntityTypes
+public enum LE_EntityTypes
 {
 	ASTHETIC_ENTITY, WALL_ENTITY, EVENT_ENTITY;
 	
@@ -18,10 +18,10 @@ public enum EntityTypes
 	/**
 	 * Creates the entity type.
 	 */
-	private EntityTypes()
+	private LE_EntityTypes()
 	{
-		id = Resources.entityTypeEnumCounter;
-		Resources.entityTypeEnumCounter++;
+		id = LE_Resources.entityTypeEnumCounter;
+		LE_Resources.entityTypeEnumCounter++;
 	}
 	
 	/**
@@ -29,11 +29,11 @@ public enum EntityTypes
 	 * @param id
 	 * @return
 	 */
-	public static EntityTypes getEntityType(int id)
+	public static LE_EntityTypes getEntityType(int id)
 	{
 		// Find matching ID number
-		EnumSet<EntityTypes> entitytypes = EnumSet.allOf(EntityTypes.class);
-		for (EntityTypes type : entitytypes)
+		EnumSet<LE_EntityTypes> entitytypes = EnumSet.allOf(LE_EntityTypes.class);
+		for (LE_EntityTypes type : entitytypes)
 		{
 			if (type.getID() == id)
 				return type;

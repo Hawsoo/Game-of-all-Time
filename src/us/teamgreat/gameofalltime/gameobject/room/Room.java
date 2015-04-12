@@ -10,7 +10,7 @@ import us.teamgreat.gameofalltime.engine.MathUtil;
 import us.teamgreat.gameofalltime.gameobject.GameObject;
 import us.teamgreat.gameofalltime.gameobject.entity.Entity;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -18,12 +18,12 @@ import us.teamgreat.gameofalltime.resources.Resources;
  * @author Timothy Bennett
  *
  */
-public abstract class Room implements GameObject
+public class Room implements GameObject
 {
 	protected Game game;
 	protected ArrayList<Entity> entities;
 	protected ArrayList<Puppet> puppets;
-	protected ArrayList<Ground> grounds;
+	protected ArrayList<Collision> collisions;
 	
 	private Camera camera;
 	private Puppet followobj;
@@ -31,12 +31,12 @@ public abstract class Room implements GameObject
 	/**
 	 * Initializes room.
 	 */
-	public Room(Game game)
+	public Room(String filename, Game game)
 	{
 		this.game = game;
 		entities = new ArrayList<Entity>();
 		puppets = new ArrayList<Puppet>();
-		grounds = new ArrayList<Ground>();
+		collisions = new ArrayList<Collision>();
 		
 		camera = new Camera(new Vector2f(0, 0), new Vector2f(0, 0), game);
 	}
@@ -85,9 +85,9 @@ public abstract class Room implements GameObject
 		for (Puppet puppet : puppets)
 			puppet.update();
 		
-		// Update each ground
-		for (Ground ground : grounds)
-			ground.update();
+		// Update each collision
+		for (Collision collision : collisions)
+			collision.update();
 		
 		// Update camera
 		if (followobj == null || !followobj.isPossessed)
@@ -110,7 +110,7 @@ public abstract class Room implements GameObject
 			puppet.render();
 		
 		// Render each ground
-		for (Ground ground : grounds)
-			ground.render();
+		for (Collision collision : collisions)
+			collision.render();
 	}
 }

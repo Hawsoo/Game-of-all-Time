@@ -98,7 +98,7 @@ public class Game
 		// Setup game
 		input = new KeyboardInput();
 //		input = new ControllerInput();
-		room = new BetaRoom(this);
+		room = new Room("lvl1_0", this);
 		
 		Resources.loadTextures();
 		

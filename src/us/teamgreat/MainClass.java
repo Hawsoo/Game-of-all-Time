@@ -1,7 +1,7 @@
 package us.teamgreat;
 
 import us.teamgreat.gameofalltime.Game;
-import us.teamgreat.isoleveleditor.resources.Resources;
+import us.teamgreat.isoleveleditor.resources.LE_Resources;
 import us.teamgreat.isoleveleditor.ui.PropertiesWindow;
 import us.teamgreat.isoleveleditor.ui.ViewerWindow;
 
@@ -13,6 +13,7 @@ import us.teamgreat.isoleveleditor.ui.ViewerWindow;
 public class MainClass
 {
 	public static final boolean LEVEL_EDITOR = false;
+	public static final boolean DEBUG = true;
 	
 	/**
 	 * Runs the program.
@@ -29,7 +30,7 @@ public class MainClass
 			frame.pack();
 			frame.setVisible(true);
 			
-			Resources.init();
+			LE_Resources.init();
 			
 			window.run();
 		}

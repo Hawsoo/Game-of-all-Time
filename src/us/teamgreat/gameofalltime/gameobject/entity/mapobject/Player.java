@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.GL11;
 
 import us.teamgreat.gameofalltime.Game;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -23,9 +23,9 @@ public class Player extends Puppet
 	 * @param z
 	 * @param game
 	 */
-	public Player(int x, int y, int z, ArrayList<Ground> grounds, Game game)
+	public Player(int x, int y, int z, ArrayList<Collision> collisions, Game game)
 	{
-		super(x, y, z, 5, 0.35, grounds, game);
+		super(x, y, z, 5, 0.35, collisions, game);
 		this.isPossessed = true;
 	}
 	

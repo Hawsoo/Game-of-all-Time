@@ -12,9 +12,9 @@ import javax.swing.JFileChooser;
 import org.lwjgl.util.vector.Vector3f;
 
 import us.teamgreat.gameofalltime.resources.Resources;
-import us.teamgreat.isoleveleditor.engine.entity.Entities;
-import us.teamgreat.isoleveleditor.engine.entity.Entity;
-import us.teamgreat.isoleveleditor.engine.entity.EntityTypes;
+import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
+import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;
+import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 import us.teamgreat.isoleveleditor.ui.ViewerWindow;
 
 /**
@@ -55,17 +55,17 @@ public class EditorIO
 						String[] parts = line.split("\t");
 						
 						// Interpret part 0 (entity ID)
-						Entities model = Entities.getEntityModel(Integer.parseInt(parts[0]));
+						LE_Entities model = LE_Entities.getEntityModel(Integer.parseInt(parts[0]));
 						
 						// Interpret part 1 (x,y,z) by commas
 						String[] coords = parts[1].split(",");
 						Vector3f pos = new Vector3f(Float.parseFloat(coords[0]), Float.parseFloat(coords[1]), Float.parseFloat(coords[2]));
 						
 						// Interpret part 2 (entity type ID)
-						EntityTypes type = EntityTypes.getEntityType(Integer.parseInt(parts[2]));
+						LE_EntityTypes type = LE_EntityTypes.getEntityType(Integer.parseInt(parts[2]));
 						
 						// Create object
-						ViewerWindow.entities.add(new Entity(model, pos, type));
+						ViewerWindow.entities.add(new LE_Entity(model, pos, type));
 					}
 				}
 				br.close();
@@ -103,7 +103,7 @@ public class EditorIO
 					new FileWriter(new File(ViewerWindow.savePath)));
 			{
 				// Write entity entries
-				for (Entity entity : ViewerWindow.entities)
+				for (LE_Entity entity : ViewerWindow.entities)
 				{
 					// Write values
 					Vector3f pos = entity.getPosition();

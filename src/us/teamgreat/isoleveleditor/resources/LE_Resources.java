@@ -5,15 +5,15 @@ import java.awt.event.WindowEvent;
 
 import us.teamgreat.MainClass;
 import us.teamgreat.gameofalltime.engine.Sprite;
-import us.teamgreat.isoleveleditor.engine.entity.Entities;
-import us.teamgreat.isoleveleditor.engine.entity.EntityTypes;
+import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
+import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 
 /**
  * Holds the resources for the app.
  * @author Noah Brown, Timothy Bennett
  *
  */
-public class Resources
+public class LE_Resources
 {
 	public static final String NAME = "Isometric Level Editor - for \"Game of all Time\"";
 	public static final String RESOURCE_DIR = "/us/teamgreat/isoleveleditor/resources/";
@@ -38,10 +38,10 @@ public class Resources
 	public static boolean showWalls = true;
 	public static boolean showEvents = true;
 	
-	public static Entities currentmodel;
+	public static LE_Entities currentmodel;
 	public static float yVal;
 	
-	public static EntityTypes currenttype = EntityTypes.ASTHETIC_ENTITY;
+	public static LE_EntityTypes currenttype = LE_EntityTypes.ASTHETIC_ENTITY;
 
 	public static int entityEnumCounter = 0;
 	public static int entityTypeEnumCounter = 0;

@@ -1,11 +1,11 @@
 package us.teamgreat.gameofalltime.gameobject.entity.mapobject;
 
 import java.awt.Rectangle;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 import us.teamgreat.gameofalltime.Game;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.wall.Wall;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -20,7 +20,7 @@ public abstract class Puppet extends MapObject
 {
 	public boolean isPossessed = false;
 	
-	protected ArrayList<Ground> grounds;
+	protected ArrayList<Collision> collisions;
 	
 	protected double maxspeed = 5;
 	protected double multiplier = 0.35;
@@ -36,13 +36,13 @@ public abstract class Puppet extends MapObject
 	 * @param z
 	 * @param game
 	 */
-	public Puppet(int x, int y, int z, double maxspeed, double accelerationMult, ArrayList<Ground> grounds, Game game)
+	public Puppet(int x, int y, int z, double maxspeed, double accelerationMult, ArrayList<Collision> collisions, Game game)
 	{
 		super(x, y, z, game);
 		
 		this.maxspeed = maxspeed;
 		this.multiplier = accelerationMult;
-		this.grounds = grounds;
+		this.collisions = collisions;
 	}
 
 	/**
@@ -206,9 +206,9 @@ public abstract class Puppet extends MapObject
 		Rectangle bounds = new Rectangle((int)(x - (basesize / 2)), (int)(z - (basesize / 2)), (int)basesize, (int)basesize);
 		
 		// Check for collisions
-		for (Ground ground : grounds)
+		for (Collision collision : collisions)
 		{
-			if (checkCollision(x, y, z, bounds, ground)) return true;
+			if (checkCollision(x, y, z, bounds, collision)) return true;
 		}
 		
 		return false;
@@ -223,7 +223,7 @@ public abstract class Puppet extends MapObject
 	 * @param ground
 	 * @return
 	 */
-	private boolean checkCollision(int x, int y, int z, Rectangle bounds, Ground ground)
+	private boolean checkCollision(int x, int y, int z, Rectangle bounds, Collision collision)
 	{
 		// Check out (if not within y bounds)
 		/*if (!(ground.y - Resources.BLOCK_SIZE < y + height && ground.y > y)) return false;

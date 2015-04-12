@@ -3,17 +3,17 @@ package us.teamgreat.isoleveleditor.engine.entity;
 import java.util.EnumSet;
 
 import us.teamgreat.gameofalltime.engine.Sprite;
-import us.teamgreat.isoleveleditor.resources.Resources;
+import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**
  * The list of entities used within.
  * @author Noah Brown, Timothy Bennett
  *
  */
-public enum Entities
+public enum LE_Entities
 {
 	// HERESTO add Entities
-	GND_REG("Ground Regular", Resources.GND_REG, Resources.GND_SILHOUETTE, Resources.GND_SHADOW);
+	GND_REG("Ground Regular", LE_Resources.GND_REG, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW);
 	
 	private int id;
 	private String name;
@@ -24,15 +24,15 @@ public enum Entities
 	/**
 	 * Creates an entity model.
 	 */
-	private Entities(String name, Sprite sprite, Sprite silhouette, Sprite shadow)
+	private LE_Entities(String name, Sprite sprite, Sprite silhouette, Sprite shadow)
 	{
 		this.name = name;
 		this.sprite = sprite;
 		this.silhouette = silhouette;
 		this.shadow = shadow;
 		
-		id = Resources.entityEnumCounter;
-		Resources.entityEnumCounter++;
+		id = LE_Resources.entityEnumCounter;
+		LE_Resources.entityEnumCounter++;
 	}
 	
 	/**
@@ -40,11 +40,11 @@ public enum Entities
 	 * @param id
 	 * @return
 	 */
-	public static Entities getEntityModel(int id)
+	public static LE_Entities getEntityModel(int id)
 	{
 		// Find matching ID number
-		EnumSet<Entities> entities = EnumSet.allOf(Entities.class);
-		for (Entities entity : entities)
+		EnumSet<LE_Entities> entities = EnumSet.allOf(LE_Entities.class);
+		for (LE_Entities entity : entities)
 		{
 			if (entity.getID() == id)
 				return entity;

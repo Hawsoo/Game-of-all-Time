@@ -6,8 +6,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 
 import us.teamgreat.gameofalltime.Game;
-import us.teamgreat.gameofalltime.engine.Sprite;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.ground.Ground;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -31,7 +30,7 @@ public class Guard extends Puppet
 	ArrayList<Vector2f> points = new ArrayList<Vector2f>();
 
 	
-	public Guard(int x, int y, int z, ArrayList<Ground> grounds, Game game)
+	public Guard(int x, int y, int z, ArrayList<Collision> grounds, Game game)
 	{
 		super(x, y, z, 5, 0.35, grounds, game);
 		this.isPossessed = true;
@@ -51,6 +50,7 @@ public class Guard extends Puppet
 	@Override
 	public void normalUpdate()
 	{
+		// TODO rewrite path-finding mechanic
 		for (Vector2f point : points)
 		{
 			double dx = x - point.getX();

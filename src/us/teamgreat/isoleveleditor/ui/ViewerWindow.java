@@ -15,9 +15,9 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import us.teamgreat.MainClass;
-import us.teamgreat.isoleveleditor.engine.entity.Entity;
-import us.teamgreat.isoleveleditor.engine.entity.EntityTypes;
-import us.teamgreat.isoleveleditor.resources.Resources;
+import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;
+import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
+import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**
  * Manages rendering of blocks in their certain order.
@@ -32,8 +32,8 @@ public class ViewerWindow
 	public static boolean saveAsRequired = true;
 	public static String savePath = null;
 	
-	public static ArrayList<Entity> entities;
-	public static ArrayList<Entity> selectedEntities;
+	public static ArrayList<LE_Entity> entities;
+	public static ArrayList<LE_Entity> selectedEntities;
 	
 	// Flags
 	public static boolean sliderchanged = false;
@@ -52,7 +52,7 @@ public class ViewerWindow
 		{
 			// Setup Display
 			Display.setDisplayMode(new DisplayMode(1024, 576));
-			Display.setTitle(Resources.NAME);
+			Display.setTitle(LE_Resources.NAME);
 			Display.setResizable(true);
 			Display.setVSyncEnabled(true);
 			Display.setInitialBackground(0, 0.5f, 0.75f);
@@ -64,8 +64,8 @@ public class ViewerWindow
 		// Setup OpenGL context
 		setupOpenGLContext();
 
-		entities = new ArrayList<Entity>();
-		selectedEntities = new ArrayList<Entity>();
+		entities = new ArrayList<LE_Entity>();
+		selectedEntities = new ArrayList<LE_Entity>();
 		
 		// Init flags
 		windowpos.x = Display.getX();
@@ -117,23 +117,23 @@ public class ViewerWindow
 					{
 						while (count < z)
 						{
-							count += (Resources.GRID_HEIGHT / 2);
+							count += (LE_Resources.GRID_HEIGHT / 2);
 							increment++;
 						}
 					}
 					else
 					{
-						while (count - (Resources.GRID_HEIGHT / 2) > z)
+						while (count - (LE_Resources.GRID_HEIGHT / 2) > z)
 						{
-							count -= (Resources.GRID_HEIGHT / 2);
+							count -= (LE_Resources.GRID_HEIGHT / 2);
 							increment++;
 						}
 					}
 					
 					// Snap to iso grid
 					z = count;
-					while (x % Resources.GRID_WIDTH != 0) x--;
-					if (increment % 2 == 0) x += (Resources.GRID_WIDTH / 2);
+					while (x % LE_Resources.GRID_WIDTH != 0) x--;
+					if (increment % 2 == 0) x += (LE_Resources.GRID_WIDTH / 2);
 					
 					// Check if collision
 					boolean colliding = false;
@@ -161,7 +161,7 @@ public class ViewerWindow
 					else
 					{
 						// Create object
-						entities.add(new Entity(Resources.currentmodel, new Vector3f(x, Resources.yVal, z)));
+						entities.add(new LE_Entity(LE_Resources.currentmodel, new Vector3f(x, LE_Resources.yVal, z)));
 					}
 				}
 				
@@ -178,12 +178,12 @@ public class ViewerWindow
 				{
 					for (int i = entities.size() - 1; i >= 0; i--)
 					{
-						Entity entity = entities.get(i);
+						LE_Entity entity = entities.get(i);
 						
 						// Find if it is in selected entities
 						for (int i2 = selectedEntities.size() - 1; i2 >= 0; i2--)
 						{
-							Entity entity2 = selectedEntities.get(i2);
+							LE_Entity entity2 = selectedEntities.get(i2);
 							if (entity == entity2)
 							{
 								// Delete both objects
@@ -205,9 +205,9 @@ public class ViewerWindow
 					sliderchanged = false;
 					
 					// Change selected objects
-					for (Entity entity : selectedEntities)
+					for (LE_Entity entity : selectedEntities)
 					{
-						entity.setY(Resources.yVal);
+						entity.setY(LE_Resources.yVal);
 					}
 				}
 				
@@ -216,9 +216,9 @@ public class ViewerWindow
 					layerchanged = false;
 					
 					// Change selected objects
-					for (Entity entity : selectedEntities)
+					for (LE_Entity entity : selectedEntities)
 					{
-						entity.type = Resources.currenttype;
+						entity.type = LE_Resources.currenttype;
 					}
 				}
 				
@@ -287,13 +287,13 @@ public class ViewerWindow
 	/**
 	 * Renders the entities in correct z-order.
 	 */
-	private void render(ArrayList<Entity> objects)
+	private void render(ArrayList<LE_Entity> objects)
 	{
 		int j;			// The number of items sorted so far
-		Entity key;		// The item to be inserted
+		LE_Entity key;		// The item to be inserted
 		int i;
 		
-		Entity[] entities = objects.toArray(new Entity[objects.size()]);
+		LE_Entity[] entities = objects.toArray(new LE_Entity[objects.size()]);
 		
 		// Execute insertion sort
 		for (j = 1; j < entities.length; j++)			// Start with 1 (not 0)
@@ -307,28 +307,28 @@ public class ViewerWindow
 		}
 		
 		// Re-input array
-		ViewerWindow.entities = new ArrayList<Entity>(Arrays.asList(entities));
+		ViewerWindow.entities = new ArrayList<LE_Entity>(Arrays.asList(entities));
 		
 		// Render the ordered list
-		for (Entity entity : ViewerWindow.entities)
+		for (LE_Entity entity : ViewerWindow.entities)
 		{
 			boolean render = false;
-			EntityTypes type = entity.type;
+			LE_EntityTypes type = entity.type;
 			
 			// Check if type is wanted to be rendered
-			if (type == EntityTypes.ASTHETIC_ENTITY)
+			if (type == LE_EntityTypes.ASTHETIC_ENTITY)
 			{
-				if (Resources.showAsthetics)
+				if (LE_Resources.showAsthetics)
 					render = true;
 			}
-			else if (type == EntityTypes.WALL_ENTITY)
+			else if (type == LE_EntityTypes.WALL_ENTITY)
 			{
-				if (Resources.showWalls)
+				if (LE_Resources.showWalls)
 					render = true;
 			}
-			else if (type == EntityTypes.EVENT_ENTITY)
+			else if (type == LE_EntityTypes.EVENT_ENTITY)
 			{
-				if (Resources.showEvents)
+				if (LE_Resources.showEvents)
 					render = true;
 			}
 			
@@ -336,13 +336,13 @@ public class ViewerWindow
 			if (render)
 			{
 				// Differentiate entities
-				if (entity.type == EntityTypes.ASTHETIC_ENTITY)
+				if (entity.type == LE_EntityTypes.ASTHETIC_ENTITY)
 					// Full color
 					GL11.glColor3f(1, 1, 1);
-				else if (entity.type == EntityTypes.WALL_ENTITY)
+				else if (entity.type == LE_EntityTypes.WALL_ENTITY)
 					// Dark color
 					GL11.glColor3f(0.5f, 0.5f, 0.5f);
-				else if (entity.type == EntityTypes.EVENT_ENTITY)
+				else if (entity.type == LE_EntityTypes.EVENT_ENTITY)
 					// Orange Hue
 					GL11.glColor3f(1, 0.47f, 0);
 				
@@ -351,14 +351,14 @@ public class ViewerWindow
 				entity.getModel().getShadow().render(shadowpos.x, shadowpos.y);
 				
 				// Render entity
-				entity.render(Resources.showYdepth);
+				entity.render(LE_Resources.showYdepth);
 				
 				// Check if selected
-				for (Entity entity2 : selectedEntities)
+				for (LE_Entity entity2 : selectedEntities)
 				{
 					if (entity == entity2)
 					{
-						Point pos = entity.getXYZ2D(Resources.showYdepth);
+						Point pos = entity.getXYZ2D(LE_Resources.showYdepth);
 						
 						// Render silhouette
 						GL11.glColor3f(1, 1, 1);

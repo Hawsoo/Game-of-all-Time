@@ -25,10 +25,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import us.teamgreat.MainClass;
-import us.teamgreat.isoleveleditor.engine.entity.Entities;
-import us.teamgreat.isoleveleditor.engine.entity.EntityTypes;
+import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
+import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 import us.teamgreat.isoleveleditor.engine.util.EditorIO;
-import us.teamgreat.isoleveleditor.resources.Resources;
+import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**
  * Properties window for editing entities.
@@ -49,7 +49,7 @@ public class PropertiesWindow extends JDialog
 	private JRadioButton rdbtnWallDesign;
 	private JRadioButton rdbtnEventDesign;
 	
-	private JComboBox<Entities> cmbEntityType;
+	private JComboBox<LE_Entities> cmbEntityType;
 	private JSlider sldVerticalRange;
 	
 	/**
@@ -61,7 +61,7 @@ public class PropertiesWindow extends JDialog
 		setResizable(false);
 		setPreferredSize(new Dimension(232, 278));
 		setLocation(new Point(ViewerWindow.windowpos.x - 232 - 32, ViewerWindow.windowpos.y));
-		addWindowListener(Resources.DEFAULT_LISTENER);
+		addWindowListener(LE_Resources.DEFAULT_LISTENER);
 		
 		// Setup menu
 		JMenuBar menuBar = new JMenuBar();
@@ -164,7 +164,7 @@ public class PropertiesWindow extends JDialog
 				public void actionPerformed(ActionEvent e)
 				{
 					// Update variable
-					Resources.showYdepth = chckbxmntmYdepth.isSelected();
+					LE_Resources.showYdepth = chckbxmntmYdepth.isSelected();
 				}
 			});
 			mnView.add(chckbxmntmYdepth);
@@ -181,7 +181,7 @@ public class PropertiesWindow extends JDialog
 				public void actionPerformed(ActionEvent e)
 				{
 					// Update variable
-					Resources.showAsthetics = chckbxmntmAstheticDesign.isSelected();
+					LE_Resources.showAsthetics = chckbxmntmAstheticDesign.isSelected();
 				}
 			});
 			mnView.add(chckbxmntmAstheticDesign);
@@ -196,7 +196,7 @@ public class PropertiesWindow extends JDialog
 				public void actionPerformed(ActionEvent e)
 				{
 					// Update variable
-					Resources.showWalls = chckbxmntmWallDesign.isSelected();
+					LE_Resources.showWalls = chckbxmntmWallDesign.isSelected();
 				}
 			});
 			mnView.add(chckbxmntmWallDesign);
@@ -211,7 +211,7 @@ public class PropertiesWindow extends JDialog
 				public void actionPerformed(ActionEvent e)
 				{
 					// Update variable
-					Resources.showEvents = chckbxmntmEventDesign.isSelected();
+					LE_Resources.showEvents = chckbxmntmEventDesign.isSelected();
 				}
 			});
 			mnView.add(chckbxmntmEventDesign);
@@ -225,12 +225,12 @@ public class PropertiesWindow extends JDialog
 		contentPane.setLayout(sl_contentPane);
 		
 		// Entity type
-		cmbEntityType = new JComboBox<Entities>();
+		cmbEntityType = new JComboBox<LE_Entities>();
 		{
 			// Add in entries
-			EnumSet<Entities> entities = EnumSet.allOf(Entities.class);
-			DefaultComboBoxModel<Entities> entityModel = new DefaultComboBoxModel<Entities>();
-			for (Entities entity : entities) entityModel.addElement(entity);
+			EnumSet<LE_Entities> entities = EnumSet.allOf(LE_Entities.class);
+			DefaultComboBoxModel<LE_Entities> entityModel = new DefaultComboBoxModel<LE_Entities>();
+			for (LE_Entities entity : entities) entityModel.addElement(entity);
 			cmbEntityType.setModel(entityModel);
 			
 			cmbEntityType.addActionListener(new ActionListener()
@@ -239,11 +239,11 @@ public class PropertiesWindow extends JDialog
 				public void actionPerformed(ActionEvent e)
 				{
 					// Update variable
-					Resources.currentmodel = cmbEntityType.getItemAt(cmbEntityType.getSelectedIndex());
+					LE_Resources.currentmodel = cmbEntityType.getItemAt(cmbEntityType.getSelectedIndex());
 				}
 			});
 			
-			Resources.currentmodel = cmbEntityType.getItemAt(0);
+			LE_Resources.currentmodel = cmbEntityType.getItemAt(0);
 			
 			sl_contentPane.putConstraint(SpringLayout.NORTH, cmbEntityType, 10, SpringLayout.NORTH, contentPane);
 			sl_contentPane.putConstraint(SpringLayout.WEST, cmbEntityType, 10, SpringLayout.WEST, contentPane);
@@ -273,7 +273,7 @@ public class PropertiesWindow extends JDialog
 				{
 					// Set the current entity type
 					ViewerWindow.layerchanged = true;
-					Resources.currenttype = EntityTypes.ASTHETIC_ENTITY;
+					LE_Resources.currenttype = LE_EntityTypes.ASTHETIC_ENTITY;
 				}
 			});
 			
@@ -295,7 +295,7 @@ public class PropertiesWindow extends JDialog
 				{
 					// Set the current entity type
 					ViewerWindow.layerchanged = true;
-					Resources.currenttype = EntityTypes.WALL_ENTITY;
+					LE_Resources.currenttype = LE_EntityTypes.WALL_ENTITY;
 				}
 			});
 			
@@ -317,7 +317,7 @@ public class PropertiesWindow extends JDialog
 				{
 					// Set the current entity type
 					ViewerWindow.layerchanged = true;
-					Resources.currenttype = EntityTypes.EVENT_ENTITY;
+					LE_Resources.currenttype = LE_EntityTypes.EVENT_ENTITY;
 				}
 			});
 			
@@ -337,14 +337,14 @@ public class PropertiesWindow extends JDialog
 				{
 					// Update change
 					ViewerWindow.sliderchanged = true;
-					Resources.yVal = sldVerticalRange.getValue();
+					LE_Resources.yVal = sldVerticalRange.getValue();
 				}
 			});
 			
 			sldVerticalRange.setOrientation(SwingConstants.VERTICAL);
 			sldVerticalRange.setValue(0);
 			
-			Resources.yVal = sldVerticalRange.getValue();
+			LE_Resources.yVal = sldVerticalRange.getValue();
 			
 			sl_contentPane.putConstraint(SpringLayout.SOUTH, btnSetEventDescription, 0, SpringLayout.SOUTH, sldVerticalRange);
 			sl_contentPane.putConstraint(SpringLayout.WEST, sldVerticalRange, 10, SpringLayout.EAST, btnSetEventDescription);
