@@ -23,5 +23,9 @@ public abstract class Entity implements GameObject
 		this.x = x;
 		this.y = y;
 		this.game = game;
+		/*
+		 * your mama so fat that she fell down the stairs.
+		 * It wasn't funny, but the stairs were cracking up.
+		 */
 	}
 }

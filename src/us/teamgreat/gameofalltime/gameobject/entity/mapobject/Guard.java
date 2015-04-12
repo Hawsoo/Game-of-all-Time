@@ -60,9 +60,10 @@ public class Guard extends Puppet
 			{
 				dx = x - point.getX();
 				dz = z - point.getY();
+				
 				double dtotal = Math.sqrt(dx * dx + dz * dz);
-				hspeed = dx / dtotal;
-				vspeed = dz / dtotal;
+				hspeed = dx / dtotal;	// Times a constant
+				vspeed = dz / dtotal;	// Times a constant
 				move();
 				
 				run = false;
@@ -81,6 +82,7 @@ public class Guard extends Puppet
 		}
 		else if (hspeed > 0 && vspeed < 0)
 		{
+			
 			spr = Resources.player_se;
 		}
 		else if (hspeed > 0 && vspeed > 0)
@@ -111,6 +113,8 @@ public class Guard extends Puppet
 		{
 			spr = Resources.player_s;
 		}*/
+		
+		// Deine muti ist so fett, dass wenn sie sits um die house, sie sits um die house
 		
 		// Render
 		GL11.glColor3f(1, 1, 1);
