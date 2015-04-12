@@ -21,6 +21,7 @@ public class Player extends Puppet
 	 * @param x
 	 * @param y
 	 * @param z
+	 * @param collisions
 	 * @param game
 	 */
 	public Player(int x, int y, int z, ArrayList<Collision> collisions, Game game)

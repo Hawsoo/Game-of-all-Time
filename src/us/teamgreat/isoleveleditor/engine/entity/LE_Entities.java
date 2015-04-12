@@ -1,8 +1,14 @@
 package us.teamgreat.isoleveleditor.engine.entity;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.EnumSet;
 
+import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Sprite;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
+import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**
@@ -13,16 +19,22 @@ import us.teamgreat.isoleveleditor.resources.LE_Resources;
 public enum LE_Entities
 {
 	// HERESTO add Entities
-	GND_REG("Ground Regular", LE_Resources.GND_REG, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW);
+	GND_REG("Ground Regular", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW);
+	
+	public static final int REGULAR_ENTITY = 1;
+	public static final int PUPPET_ENTITY = 2;
 	
 	private int id;
 	private String name;
 	private Sprite sprite;
 	private Sprite silhouette;
 	private Sprite shadow;
+	private int entitytype;
+	
+	private Class<? extends Puppet> puppetClass;
 	
 	/**
-	 * Creates an entity model.
+	 * Creates a regular entity model.
 	 */
 	private LE_Entities(String name, Sprite sprite, Sprite silhouette, Sprite shadow)
 	{
@@ -30,6 +42,24 @@ public enum LE_Entities
 		this.sprite = sprite;
 		this.silhouette = silhouette;
 		this.shadow = shadow;
+		this.entitytype = REGULAR_ENTITY;
+		
+		id = LE_Resources.entityEnumCounter;
+		LE_Resources.entityEnumCounter++;
+	}
+	
+	/**
+	 * Creates a puppet entity model.
+	 */
+	private LE_Entities(String name, Sprite sprite, Sprite silhouette, Sprite shadow, Class<? extends Puppet> puppetClass)
+	{
+		this.name = name;
+		this.sprite = sprite;
+		this.silhouette = silhouette;
+		this.shadow = shadow;
+		this.entitytype = PUPPET_ENTITY;
+		
+		this.puppetClass = puppetClass;
 		
 		id = LE_Resources.entityEnumCounter;
 		LE_Resources.entityEnumCounter++;
@@ -53,6 +83,17 @@ public enum LE_Entities
 		return null;
 	}
 	
+	public Puppet instantiatePuppet(int x, int y, int z, ArrayList<Collision> collisions, Game game)
+	{
+		try
+		{
+			// Create new instance of a puppet
+			return puppetClass.getDeclaredConstructor(new Class[] {int.class, int.class, int.class, ArrayList.class, Game.class}).newInstance(x, y, z, collisions, game);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {}
+		
+		return null;
+	}
+	
 	/**
 	 * Gets the model id.
 	 * @return
@@ -60,6 +101,15 @@ public enum LE_Entities
 	public int getID()
 	{
 		return id;
+	}
+	
+	/**
+	 * Gets the model type.
+	 * @return
+	 */
+	public int getType()
+	{
+		return entitytype;
 	}
 	
 	/**

@@ -24,11 +24,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector2f;
-import org.newdawn.slick.openal.SoundStore;
 
-import us.teamgreat.gameofalltime.engine.Camera;
-import us.teamgreat.gameofalltime.gameobject.room.BetaRoom;
 import us.teamgreat.gameofalltime.gameobject.room.Room;
 import us.teamgreat.gameofalltime.inputhandler.InputHandler;
 import us.teamgreat.gameofalltime.inputhandler.KeyboardInput;
@@ -98,7 +94,19 @@ public class Game
 		// Setup game
 		input = new KeyboardInput();
 //		input = new ControllerInput();
-		room = new Room("lvl1_0", this);
+		try
+		{
+			// Load up a room
+			room = Room.loadRoom("lvl1_0", this, new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					// Show that it works
+					System.out.println("YAY!!!");
+				}
+			});
+		} catch (IOException e) {}
 		
 		Resources.loadTextures();
 		

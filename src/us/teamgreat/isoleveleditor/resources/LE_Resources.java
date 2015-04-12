@@ -50,8 +50,6 @@ public class LE_Resources
 	public static Sprite GND_SILHOUETTE = new Sprite(24, 50, "block_silhouette.png");
 	public static Sprite GND_SHADOW = new Sprite(24, 50, "block_backdrop.png");
 	
-	public static Sprite GND_REG = new Sprite(24, 50, "dirt_block.png");
-	
 	/**
 	 * Initializes resources that are unable
 	 * to be initialized during the beginning

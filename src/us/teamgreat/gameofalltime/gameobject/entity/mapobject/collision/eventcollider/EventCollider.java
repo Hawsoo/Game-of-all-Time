@@ -12,7 +12,7 @@ import us.teamgreat.gameofalltime.resources.Resources;
  * @author Timothy Bennett
  *
  */
-public abstract class EventCollider extends Collision
+public class EventCollider extends Collision
 {
 	private Runnable eventscript;
 	
@@ -37,6 +37,9 @@ public abstract class EventCollider extends Collision
 	{
 		eventscript.run();
 	}
+
+	@Override
+	public void update() {}
 	
 	@Override
 	public void render()

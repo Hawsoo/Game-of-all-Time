@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.wall.Wall;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.eventcollider.EventCollider;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -193,7 +193,7 @@ public abstract class Puppet extends MapObject
 	}
 	
 	/**
-	 * Gets collision with cylinder and
+	 * Gets collision with puppet and
 	 * blocks of other objects.
 	 * @param x
 	 * @param y
@@ -208,7 +208,20 @@ public abstract class Puppet extends MapObject
 		// Check for collisions
 		for (Collision collision : collisions)
 		{
-			if (checkCollision(x, y, z, bounds, collision)) return true;
+			if (checkCollision(x, y, z, bounds, collision))
+			{
+				// Return a solid collision
+				if (collision.getType() == Collision.TYPE_WALL)
+				{
+					return true;
+				}
+				// Execute event script
+				else if (collision.getType() == Collision.TYPE_EVENT_COLLIDER)
+				{
+					((EventCollider)collision).triggerScript();
+					return true;
+				}
+			}
 		}
 		
 		return false;

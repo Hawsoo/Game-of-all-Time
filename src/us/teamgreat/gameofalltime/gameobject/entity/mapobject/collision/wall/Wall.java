@@ -12,7 +12,7 @@ import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collisio
  * @author Timothy Bennett
  *
  */
-public abstract class Wall extends Collision
+public class Wall extends Collision
 {
 	/**
 	 * Creates a ground.
@@ -25,6 +25,9 @@ public abstract class Wall extends Collision
 	{
 		super(x, y, z, sprite, Collision.TYPE_WALL, game);
 	}
+
+	@Override
+	public void update() {}
 	
 	@Override
 	public void render()
