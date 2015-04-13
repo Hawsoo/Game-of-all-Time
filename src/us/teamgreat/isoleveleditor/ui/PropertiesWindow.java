@@ -386,6 +386,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_NW;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				
@@ -404,6 +405,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_N;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				
@@ -422,6 +424,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_NE;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				
@@ -440,6 +443,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_W;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				
@@ -458,6 +462,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_E;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				
@@ -476,6 +481,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_SE;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				
@@ -494,6 +500,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_S;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				
@@ -513,6 +520,7 @@ public class PropertiesWindow extends JDialog
 					{
 						// Update Resources
 						LE_Resources.currentdirection = Puppet.DIR_SW;
+						LE_Resources.directionChanged = true;
 					}
 				});
 				

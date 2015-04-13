@@ -15,6 +15,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import us.teamgreat.MainClass;
+import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;
 import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
@@ -118,23 +119,23 @@ public class ViewerWindow
 					{
 						while (count < z)
 						{
-							count += (LE_Resources.GRID_HEIGHT / 2);
+							count += (Resources.GRID_HEIGHT / 2);
 							increment++;
 						}
 					}
 					else
 					{
-						while (count - (LE_Resources.GRID_HEIGHT / 2) > z)
+						while (count - (Resources.GRID_HEIGHT / 2) > z)
 						{
-							count -= (LE_Resources.GRID_HEIGHT / 2);
+							count -= (Resources.GRID_HEIGHT / 2);
 							increment++;
 						}
 					}
 					
 					// Snap to iso grid
 					z = count;
-					while (x % LE_Resources.GRID_WIDTH != 0) x--;
-					if (increment % 2 == 0) x += (LE_Resources.GRID_WIDTH / 2);
+					while (x % Resources.GRID_WIDTH != 0) x--;
+					if (increment % 2 == 0) x += (Resources.GRID_WIDTH / 2);
 					
 					// Check if collision
 					boolean colliding = false;

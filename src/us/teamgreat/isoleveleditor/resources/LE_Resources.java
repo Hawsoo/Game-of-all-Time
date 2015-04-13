@@ -18,10 +18,6 @@ public class LE_Resources
 {
 	public static final String NAME = "Isometric Level Editor - for \"Game of all Time\"";
 	
-	public static final float Z_RATIO = 0.65f;
-	public static final float GRID_WIDTH = 48;
-	public static final float GRID_HEIGHT = GRID_WIDTH * Z_RATIO;
-	
 	public static final WindowAdapter DEFAULT_LISTENER = new WindowAdapter()
 	{
 		@Override

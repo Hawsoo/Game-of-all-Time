@@ -45,17 +45,17 @@ public abstract class Collision extends MapObject
 	public void render()
 	{
 		// Render sprite
-//		sprite.render((int)x, (int)(z + y));
+		sprite.render((int)x, (int)(z + y));
 		
 		// Render lines
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glBegin(GL11.GL_QUADS);
-		{
-			GL11.glVertex2d(x, z + 64);
-			GL11.glVertex2d(x + 24, z + 64 - 15);
-			GL11.glVertex2d(x, z + 64 - 30);
-			GL11.glVertex2d(x - 24, z + 64 - 15);
-		}
-		GL11.glEnd();
+//		GL11.glDisable(GL11.GL_TEXTURE_2D);
+//		GL11.glBegin(GL11.GL_QUADS);
+//		{
+//			GL11.glVertex2d(x, z + 64);
+//			GL11.glVertex2d(x + 24, z + 64 - 15);
+//			GL11.glVertex2d(x, z + 64 - 30);
+//			GL11.glVertex2d(x - 24, z + 64 - 15);
+//		}
+//		GL11.glEnd();
 	}
 }

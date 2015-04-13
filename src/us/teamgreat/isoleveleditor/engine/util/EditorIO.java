@@ -67,7 +67,7 @@ public class EditorIO
 						
 						// Interpret part 3 (entity direction)
 						int dir = Puppet.DIR_S;
-						if (parts.length >= 3)
+						if (parts.length >= 4)
 							dir = Integer.parseInt(parts[3]);
 						
 						// Create object

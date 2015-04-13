@@ -1,15 +1,13 @@
 package us.teamgreat.isoleveleditor.engine.entity;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.EnumSet;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Sprite;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Guard;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Puppet;
+import us.teamgreat.gameofalltime.gameobject.room.Room;
 import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
@@ -93,12 +91,22 @@ public enum LE_Entities
 		return null;
 	}
 	
-	public Puppet instantiatePuppet(int x, int y, int z, ArrayList<PathNode> pathnodes, ArrayList<Collision> collisions, Game game)
+	/**
+	 * Creates a puppet from a delegated constructor.
+	 * @param x
+	 * @param y
+	 * @param z
+	 * @param dir
+	 * @param room
+	 * @param game
+	 * @return
+	 */
+	public Puppet instantiatePuppet(int x, int y, int z, int dir, Room room, Game game)
 	{
 		try
 		{
 			// Create new instance of a puppet
-			return puppetClass.getDeclaredConstructor(new Class[] {int.class, int.class, int.class, ArrayList.class, ArrayList.class, Game.class}).newInstance(x, y, z, pathnodes, collisions, game);
+			return puppetClass.getDeclaredConstructor(new Class[] {int.class, int.class, int.class, int.class, Room.class, Game.class}).newInstance(x, y, z, dir, room, game);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {}
 		
 		return null;

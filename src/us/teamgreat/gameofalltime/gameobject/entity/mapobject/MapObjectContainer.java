@@ -36,7 +36,7 @@ public class MapObjectContainer extends MapObject
 	{
 		// Render the sprite
 		GL11.glColor3f(1, 1, 1);
-//		sprite.render((int)x, (int)(z + y));
+		sprite.render((int)x, (int)(z + y));
 	}
 	
 }

@@ -55,9 +55,9 @@ public class Resources
 	public static Sprite player_beta = new Sprite(24, 0, "images/playerBETA.png");
 	public static Sprite guard_beta = new Sprite(24, 0, "images/guardBETA.png");
 	
-	public static Sprite block_beta = new Sprite(24, 0, "images/blocks/dirt_block.png");
+	public static Sprite block_beta = new Sprite(24, 50, "images/blocks/dirt_block.png");
 	
-	public static Sprite path_node = new Sprite(24, 0, "images/blocks/path_node.png");
+	public static Sprite path_node = new Sprite(24, 50, "images/blocks/path_node.png");
 	
 	public static Sprite guard_icon = new Sprite(18, 0, "images/guard/gS.png");
 	

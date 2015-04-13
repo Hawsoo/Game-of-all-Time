@@ -35,11 +35,9 @@ public class Room implements GameObject
 	public Player player;
 	
 	protected Game game;
-	private ArrayList<MapObject> objects;
-	private ArrayList<Puppet> puppets;
-	private ArrayList<Collision> collisions;
-	
-	private ArrayList<PathNode> pathnodes;
+	public ArrayList<MapObject> objects;
+	public ArrayList<Puppet> puppets;
+	public ArrayList<Collision> collisions;
 	
 	private Camera camera;
 	private Puppet followobj;
@@ -53,9 +51,8 @@ public class Room implements GameObject
 		objects = new ArrayList<MapObject>();
 		puppets = new ArrayList<Puppet>();
 		collisions = new ArrayList<Collision>();
-		pathnodes = new ArrayList<PathNode>();
 		
-		player = new Player(0, 0, 0, Puppet.DIR_S, pathnodes, collisions, game);
+		player = new Player(0, 0, 0, Puppet.DIR_S, this, game);
 		camera = new Camera(new Vector2f(0, 0), new Vector2f(0, 0), game);
 	}
 	
@@ -95,13 +92,18 @@ public class Room implements GameObject
 					// Interpret part 2 (entity type ID)
 					LE_EntityTypes type = LE_EntityTypes.getEntityType(Integer.parseInt(parts[2]));
 					
+					// Interpret part 3 (entity direction)
+					int dir = Puppet.DIR_S;
+					if (parts.length >= 4)
+						dir = Integer.parseInt(parts[3]);
+					
 					// Create object
 					if (type == LE_EntityTypes.ASTHETIC_ENTITY)
 					{
 						// Sort if entity is a regular entity or a puppet
 						if (model.getEntityType() == LE_Entities.PUPPET_ENTITY)
 						{
-							room.puppets.add(model.instantiatePuppet((int)pos.x, (int)pos.y, (int)pos.z, room.pathnodes, room.collisions, game));
+							room.puppets.add(model.instantiatePuppet((int)pos.x, (int)pos.y, (int)pos.z, dir, room, game));
 						}
 						else if (model.getEntityType() == LE_Entities.PATH_NODE_ENTITY)
 						{

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.eventcollider.EventCollider;
+import us.teamgreat.gameofalltime.gameobject.room.Room;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -33,7 +33,7 @@ public abstract class Puppet extends MapObject
 	public boolean isPossessed = false;
 	public int direction;
 	
-	protected ArrayList<PathNode> pathnodes;
+	protected Room room;
 	protected ArrayList<Collision> collisions;
 	
 	protected double maxspeed = 5;
@@ -50,15 +50,15 @@ public abstract class Puppet extends MapObject
 	 * @param z
 	 * @param game
 	 */
-	public Puppet(int x, int y, int z, double maxspeed, double accelerationMult, int direction, ArrayList<PathNode> pathnodes, ArrayList<Collision> collisions, Game game)
+	public Puppet(int x, int y, int z, double maxspeed, double accelerationMult, int direction, Room room, Game game)
 	{
 		super(x, y, z, game);
 		
 		this.maxspeed = maxspeed;
 		this.multiplier = accelerationMult;
 		this.direction = direction;
-		this.pathnodes = pathnodes;
-		this.collisions = collisions;
+		this.room = room;
+		this.collisions = room.collisions;
 	}
 
 	/**

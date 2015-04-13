@@ -1,13 +1,10 @@
 package us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet;
 
-import java.util.ArrayList;
-
 import org.lwjgl.opengl.GL11;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Animation;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
+import us.teamgreat.gameofalltime.gameobject.room.Room;
 import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
@@ -26,9 +23,9 @@ public class Player extends Puppet
 	 * @param collisions
 	 * @param game
 	 */
-	public Player(int x, int y, int z, int direction, ArrayList<PathNode> pathnodes, ArrayList<Collision> collisions, Game game)
+	public Player(int x, int y, int z, int direction, Room room, Game game)
 	{
-		super(x, y, z, 5, 0.35, direction, null, collisions, game);
+		super(x, y, z, 5, 0.35, direction, room, game);
 		this.isPossessed = true;
 	}
 	
@@ -83,28 +80,28 @@ public class Player extends Puppet
 		GL11.glColor3f(1, 1, 1);
 		ani.render((int)x, (int)(z/* * Resources.Z_RATIO*/ + y + Resources.drawYoff));
 		
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glBegin(GL11.GL_QUADS);
-		{
-			GL11.glVertex2d(x - (basesize / 2), z + (basesize / 2));
-			GL11.glVertex2d(x + (basesize / 2), z + (basesize / 2));
-			GL11.glVertex2d(x + (basesize / 2), z - (basesize / 2));
-			GL11.glVertex2d(x - (basesize / 2), z - (basesize / 2));
-		}
-		GL11.glEnd();
+//		GL11.glDisable(GL11.GL_TEXTURE_2D);
+//		GL11.glBegin(GL11.GL_QUADS);
+//		{
+//			GL11.glVertex2d(x - (basesize / 2), z + (basesize / 2));
+//			GL11.glVertex2d(x + (basesize / 2), z + (basesize / 2));
+//			GL11.glVertex2d(x + (basesize / 2), z - (basesize / 2));
+//			GL11.glVertex2d(x - (basesize / 2), z - (basesize / 2));
+//		}
+//		GL11.glEnd();
 		
 		// Render Grounds
-		for (Collision collision : collisions)
-		{
-			GL11.glColor3f(1, 0, 0);
-			GL11.glBegin(GL11.GL_QUADS);
-			{
-				GL11.glVertex2d(collision.x - (basesize / 2), collision.z + (basesize / 2));
-				GL11.glVertex2d(collision.x + (basesize / 2), collision.z + (basesize / 2));
-				GL11.glVertex2d(collision.x + (basesize / 2), collision.z - (basesize / 2));
-				GL11.glVertex2d(collision.x - (basesize / 2), collision.z - (basesize / 2));
-			}
-			GL11.glEnd();
-		}
+//		for (Collision collision : collisions)
+//		{
+//			GL11.glColor3f(1, 0, 0);
+//			GL11.glBegin(GL11.GL_QUADS);
+//			{
+//				GL11.glVertex2d(collision.x - (basesize / 2), collision.z + (basesize / 2));
+//				GL11.glVertex2d(collision.x + (basesize / 2), collision.z + (basesize / 2));
+//				GL11.glVertex2d(collision.x + (basesize / 2), collision.z - (basesize / 2));
+//				GL11.glVertex2d(collision.x - (basesize / 2), collision.z - (basesize / 2));
+//			}
+//			GL11.glEnd();
+//		}
 	}
 }
