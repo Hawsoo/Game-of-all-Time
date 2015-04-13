@@ -69,7 +69,7 @@ public class PropertiesWindow extends JDialog
 	{
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setResizable(false);
-		setPreferredSize(new Dimension(232, 278));
+		setPreferredSize(new Dimension(232, 290));
 		setLocation(new Point(ViewerWindow.windowpos.x - 232 - 32, ViewerWindow.windowpos.y));
 		addWindowListener(LE_Resources.DEFAULT_LISTENER);
 		

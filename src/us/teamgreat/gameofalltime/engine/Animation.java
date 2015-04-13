@@ -14,7 +14,6 @@ public class Animation
 	
 	private int frameSize;
 	
-	
 	/**
 	 * Creates the animation.
 	 * @param sprites

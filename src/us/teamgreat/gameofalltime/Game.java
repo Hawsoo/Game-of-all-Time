@@ -167,7 +167,7 @@ public class Game
 		
 		glOrtho(0, contextsize.width, 0, contextsize.height, -500, 500);
 		glMatrixMode(GL_MODELVIEW);
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
+//		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		
 		// Update flags
 		size.width = Display.getWidth();

@@ -25,6 +25,4 @@ public abstract class MapObject extends Entity
 		super(x, y, game);
 		this.z = z;
 	}
-	
-	
 }

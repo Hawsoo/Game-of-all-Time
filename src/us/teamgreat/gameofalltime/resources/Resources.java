@@ -61,7 +61,7 @@ public class Resources
 	
 	
 	// Load up all player sprites
-	private static final int frameSize = 3;
+	private static final int frameSize = 10;
 	
 	public static Sprite player_e_l = new Sprite(13, 0, "images/player/pE_l.png");
 	public static Sprite player_e_r = new Sprite(13, 0, "images/player/pE_r.png");

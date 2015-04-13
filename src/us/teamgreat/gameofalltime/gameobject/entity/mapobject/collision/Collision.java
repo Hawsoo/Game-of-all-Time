@@ -3,7 +3,6 @@ package us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision;
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Sprite;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
-import us.teamgreat.gameofalltime.resources.Resources;
 
 /**
  * Generalization of something for
@@ -44,6 +43,6 @@ public abstract class Collision extends MapObject
 	public void render()
 	{
 		// Render sprite
-		sprite.render((int)x, (int)(z * Resources.Z_RATIO + y));
+		sprite.render((int)x, (int)(z + y));
 	}
 }

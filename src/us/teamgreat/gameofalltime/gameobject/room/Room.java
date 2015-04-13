@@ -1,10 +1,11 @@
 package us.teamgreat.gameofalltime.gameobject.room;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -13,13 +14,15 @@ import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Camera;
 import us.teamgreat.gameofalltime.engine.MathUtil;
 import us.teamgreat.gameofalltime.gameobject.GameObject;
-import us.teamgreat.gameofalltime.gameobject.entity.Entity;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Player;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.eventcollider.EventCollider;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.wall.Wall;
 import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
+import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;
 import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 
 /**
@@ -29,8 +32,10 @@ import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
  */
 public class Room implements GameObject
 {
+	public Player player;
+	
 	protected Game game;
-	protected ArrayList<Entity> entities;
+	protected ArrayList<MapObject> objects;
 	private ArrayList<Puppet> puppets;
 	ArrayList<Collision> collisions;
 	
@@ -43,10 +48,11 @@ public class Room implements GameObject
 	private Room(String filename, Game game)
 	{
 		this.game = game;
-		entities = new ArrayList<Entity>();
+		objects = new ArrayList<MapObject>();
 		puppets = new ArrayList<Puppet>();
 		collisions = new ArrayList<Collision>();
 		
+		player = new Player(0, 0, 0, Puppet.DIR_S, collisions, game);
 		camera = new Camera(new Vector2f(0, 0), new Vector2f(0, 0), game);
 	}
 	
@@ -59,17 +65,19 @@ public class Room implements GameObject
 	 */
 	public static Room loadRoom(String name, Game game, Runnable roomscript) throws IOException
 	{
-		// FIXME make file reader read from within jar file
 		// Check if file exists
-		File file;
-		if ((file = new File(Resources.RESOURCES_DIR + "levels/" + name)).exists())
+		InputStream in = Room.class.getResourceAsStream(Resources.RESOURCES_DIR + "levels/" + name);
+		if (in != null)
 		{
 			// Create initial room
 			Room room = new Room(name, game);
 			
 			// Read file
+			/*BufferedReader br = new BufferedReader(
+					new FileReader(file));*/
+			
 			BufferedReader br = new BufferedReader(
-					new FileReader(file));
+					new InputStreamReader(in));
 			{
 				// Read lines of file
 				String line;
@@ -134,8 +142,8 @@ public class Room implements GameObject
 				return puppets.get(i);
 		}
 		
-		puppets.get(0).isPossessed = true;
-		return puppets.get(0);
+		player.isPossessed = true;
+		return player;
 	}
 	
 	/**
@@ -157,9 +165,12 @@ public class Room implements GameObject
 	@Override
 	public void update()
 	{
+		// Update player
+		player.update();
+		
 		// Update each entity
-		for (Entity entity : entities)
-			entity.update();
+		for (MapObject object : objects)
+			object.update();
 		
 		// Update each puppet
 		for (Puppet puppet : puppets)
@@ -181,16 +192,63 @@ public class Room implements GameObject
 		// Transform camera
 		camera.translateView();
 		
-		// Render each entity
-		for (Entity entity : entities)
-			entity.render();
+		// Combine everything
+		MapObject[] allObjs = new MapObject[objects.size() + puppets.size() + collisions.size() + 1];
+		int i = 0;
 		
-		// Render each puppet
+		// Add objects
+		for (MapObject object : objects)
+		{
+			allObjs[i] = object;
+			i++;
+		}
+		
+		// Add objects
 		for (Puppet puppet : puppets)
-			puppet.render();
+		{
+			allObjs[i] = puppet;
+			i++;
+		}
 		
-		// Render each ground
+		// Add collisions
 		for (Collision collision : collisions)
-			collision.render();
+		{
+			allObjs[i] = collision;
+			i++;
+		}
+		
+		// Add player
+		allObjs[i] = player;
+		
+		// Render
+		renderInOrderByZ(allObjs);
+	}
+	
+	/**
+	 * Renders everything in order.
+	 * @param objs
+	 */
+	private void renderInOrderByZ(MapObject[] objs)
+	{
+		int j;				// The number of items sorted so far
+		MapObject key;		// The item to be inserted
+		int i;
+		
+		// Execute insertion sort
+		for (j = 1; j < objs.length; j++)			// Start with 1 (not 0)
+		{
+			key = objs[j];
+			for (i = j - 1; (i >= 0) && (objs[i].z < key.z); i--)			// Smaller values are moving up
+			{
+				objs[i + 1] = objs[i];
+			}
+			objs[i + 1] = key;							// Put the key in its proper location
+		}
+		
+		// Render ordered list backwards
+		for (MapObject object : objs)
+		{
+			object.render();
+		}
 	}
 }
