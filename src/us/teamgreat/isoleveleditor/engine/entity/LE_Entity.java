@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Puppet;
 import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
 /**

@@ -6,9 +6,10 @@ import java.util.EnumSet;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Sprite;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Guard;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Guard;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Puppet;
 import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.resources.LE_Resources;
 
@@ -20,18 +21,18 @@ import us.teamgreat.isoleveleditor.resources.LE_Resources;
 public enum LE_Entities
 {
 	// HERESTO add Entities
-	GND_REG("Ground Regular", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
-	GND_REG_V2("Ground Regular v2", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
-	WALL("Wall", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
-	WALL_V2("Wall v2", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
-	WALL_V3("Wall v3", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
-	WALL_INV("Wall Invisible", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
-	PATH_NODE("Path Node", Resources.path_node, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW),
+	GND_REG("Ground Regular", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW, 1),
+	GND_REG_V2("Ground Regular v2", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW, 1),
+	WALL("Wall", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW, 1),
+	WALL_V2("Wall v2", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW, 1),
+	WALL_V3("Wall v3", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW, 1),
+	WALL_INV("Wall Invisible", Resources.block_beta, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW, 1),
+	PATH_NODE("Path Node", Resources.path_node, LE_Resources.GND_SILHOUETTE, LE_Resources.GND_SHADOW, 3),
 	PUPPET_GUARD("Guard Puppet", Resources.guard_icon, LE_Resources.GUARD_SILHOUETTE, Resources.guard_beta, Guard.class);
-	
 	
 	public static final int REGULAR_ENTITY = 1;
 	public static final int PUPPET_ENTITY = 2;
+	public static final int PATH_NODE_ENTITY = 3;
 	
 	private int id;
 	private String name;
@@ -45,13 +46,13 @@ public enum LE_Entities
 	/**
 	 * Creates a regular entity model.
 	 */
-	private LE_Entities(String name, Sprite sprite, Sprite silhouette, Sprite shadow)
+	private LE_Entities(String name, Sprite sprite, Sprite silhouette, Sprite shadow, int entitytype)
 	{
 		this.name = name;
 		this.sprite = sprite;
 		this.silhouette = silhouette;
 		this.shadow = shadow;
-		this.entitytype = REGULAR_ENTITY;
+		this.entitytype = entitytype;
 		
 		id = LE_Resources.entityEnumCounter;
 		LE_Resources.entityEnumCounter++;
@@ -92,12 +93,12 @@ public enum LE_Entities
 		return null;
 	}
 	
-	public Puppet instantiatePuppet(int x, int y, int z, ArrayList<Collision> collisions, Game game)
+	public Puppet instantiatePuppet(int x, int y, int z, ArrayList<PathNode> pathnodes, ArrayList<Collision> collisions, Game game)
 	{
 		try
 		{
 			// Create new instance of a puppet
-			return puppetClass.getDeclaredConstructor(new Class[] {int.class, int.class, int.class, ArrayList.class, Game.class}).newInstance(x, y, z, collisions, game);
+			return puppetClass.getDeclaredConstructor(new Class[] {int.class, int.class, int.class, ArrayList.class, ArrayList.class, Game.class}).newInstance(x, y, z, pathnodes, collisions, game);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {}
 		
 		return null;

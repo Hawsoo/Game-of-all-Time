@@ -11,7 +11,7 @@ import javax.swing.JFileChooser;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Puppet;
 import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;

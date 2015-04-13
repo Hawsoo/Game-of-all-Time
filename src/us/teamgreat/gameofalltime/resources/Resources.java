@@ -43,6 +43,8 @@ public class Resources
 	public static final float GRID_WIDTH = 48;
 	public static final float GRID_HEIGHT = GRID_WIDTH * Z_RATIO;
 	
+	public static final int drawYoff = 64;
+	
 	// Music
 	public static Audio test_audio = AudioUtil.getAudioAsStream("music/test.ogg");
 	
@@ -53,9 +55,9 @@ public class Resources
 	public static Sprite player_beta = new Sprite(24, 0, "images/playerBETA.png");
 	public static Sprite guard_beta = new Sprite(24, 0, "images/guardBETA.png");
 	
-	public static Sprite block_beta = new Sprite(24, 50, "images/blocks/dirt_block.png");
+	public static Sprite block_beta = new Sprite(24, 0, "images/blocks/dirt_block.png");
 	
-	public static Sprite path_node = new Sprite(24, 50, "images/blocks/path_node.png");
+	public static Sprite path_node = new Sprite(24, 0, "images/blocks/path_node.png");
 	
 	public static Sprite guard_icon = new Sprite(18, 0, "images/guard/gS.png");
 	
@@ -63,44 +65,44 @@ public class Resources
 	// Load up all player sprites
 	private static final int frameSize = 10;
 	
-	public static Sprite player_e_l = new Sprite(13, 0, "images/player/pE_l.png");
-	public static Sprite player_e_r = new Sprite(13, 0, "images/player/pE_r.png");
-	public static Sprite player_e = new Sprite(13, 0, "images/player/pE.png");
+	public static Sprite player_e_l = new Sprite(20, 64, "images/player/pE_l.png");
+	public static Sprite player_e_r = new Sprite(22, 64, "images/player/pE_r.png");
+	public static Sprite player_e = new Sprite(22, 64, "images/player/pE.png");
 	public static Animation player_ani_e = new Animation(frameSize, player_e, player_e_l, player_e, player_e_r);
 	
-	public static Sprite player_n_l = new Sprite(13, 0, "images/player/pN_l.png");
-	public static Sprite player_n_r = new Sprite(13, 0, "images/player/pN_r.png");
-	public static Sprite player_n = new Sprite(13, 0, "images/player/pN.png");
+	public static Sprite player_n_l = new Sprite(30, 64, "images/player/pN_l.png");
+	public static Sprite player_n_r = new Sprite(32, 64, "images/player/pN_r.png");
+	public static Sprite player_n = new Sprite(30, 64, "images/player/pN.png");
 	public static Animation player_ani_n = new Animation(frameSize, player_n, player_n_l, player_n, player_n_r);
 	
-	public static Sprite player_ne_l = new Sprite(13, 0, "images/player/pNE_l.png");
-	public static Sprite player_ne_r = new Sprite(13, 0, "images/player/pNE_r.png");
-	public static Sprite player_ne = new Sprite(13, 0, "images/player/pNE.png");
+	public static Sprite player_ne_l = new Sprite(26, 64, "images/player/pNE_l.png");
+	public static Sprite player_ne_r = new Sprite(26, 64, "images/player/pNE_r.png");
+	public static Sprite player_ne = new Sprite(26, 64, "images/player/pNE.png");
 	public static Animation player_ani_ne = new Animation(frameSize, player_ne, player_ne_l, player_ne, player_ne_r);
 	
-	public static Sprite player_nw_l = new Sprite(13, 0, "images/player/pNW_l.png");
-	public static Sprite player_nw_r = new Sprite(13, 0, "images/player/pNW_r.png");
-	public static Sprite player_nw = new Sprite(13, 0, "images/player/pNW.png");
+	public static Sprite player_nw_l = new Sprite(26, 64, "images/player/pNW_l.png");
+	public static Sprite player_nw_r = new Sprite(26, 64, "images/player/pNW_r.png");
+	public static Sprite player_nw = new Sprite(26, 64, "images/player/pNW.png");
 	public static Animation player_ani_nw = new Animation(frameSize, player_nw, player_nw_l, player_nw, player_nw_r);
 	
-	public static Sprite player_s_l = new Sprite(13, 0, "images/player/pS_l.png");
-	public static Sprite player_s_r = new Sprite(13, 0, "images/player/pS_r.png");
-	public static Sprite player_s = new Sprite(13, 0, "images/player/pS.png");
+	public static Sprite player_s_l = new Sprite(32, 64, "images/player/pS_l.png");
+	public static Sprite player_s_r = new Sprite(32, 64, "images/player/pS_r.png");
+	public static Sprite player_s = new Sprite(32, 64, "images/player/pS.png");
 	public static Animation player_ani_s = new Animation(frameSize, player_s, player_s_l, player_s, player_s_r);
 	
-	public static Sprite player_se_l = new Sprite(13, 0, "images/player/pSE_l.png");
-	public static Sprite player_se_r = new Sprite(13, 0, "images/player/pSE_r.png");
-	public static Sprite player_se = new Sprite(13, 0, "images/player/pSE.png");
+	public static Sprite player_se_l = new Sprite(32, 64, "images/player/pSE_l.png");
+	public static Sprite player_se_r = new Sprite(32, 64, "images/player/pSE_r.png");
+	public static Sprite player_se = new Sprite(32, 64, "images/player/pSE.png");
 	public static Animation player_ani_se = new Animation(frameSize, player_se, player_se_l, player_se, player_se_r);
 	
-	public static Sprite player_sw_l = new Sprite(13, 0, "images/player/pSW_l.png");
-	public static Sprite player_sw_r = new Sprite(13, 0, "images/player/pSW_r.png");
-	public static Sprite player_sw = new Sprite(13, 0, "images/player/pSW.png");
+	public static Sprite player_sw_l = new Sprite(23, 64, "images/player/pSW_l.png");
+	public static Sprite player_sw_r = new Sprite(23, 64, "images/player/pSW_r.png");
+	public static Sprite player_sw = new Sprite(23, 64, "images/player/pSW.png");
 	public static Animation player_ani_sw = new Animation(frameSize, player_sw, player_sw_l, player_sw, player_sw_r);
 	
-	public static Sprite player_w_l = new Sprite(13, 0, "images/player/pW_l.png");
-	public static Sprite player_w_r = new Sprite(13, 0, "images/player/pW_r.png");
-	public static Sprite player_w = new Sprite(13, 0, "images/player/pW.png");
+	public static Sprite player_w_l = new Sprite(20, 64, "images/player/pW_l.png");
+	public static Sprite player_w_r = new Sprite(22, 64, "images/player/pW_r.png");
+	public static Sprite player_w = new Sprite(22, 64, "images/player/pW.png");
 	public static Animation player_ani_w = new Animation(frameSize, player_w, player_w_l, player_w, player_w_r);
 	
 	// Load up all guard sprites

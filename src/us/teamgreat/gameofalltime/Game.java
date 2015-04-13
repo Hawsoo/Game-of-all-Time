@@ -23,7 +23,6 @@ import org.lwjgl.input.Controllers;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 
 import us.teamgreat.gameofalltime.gameobject.room.Room;
 import us.teamgreat.gameofalltime.inputhandler.InputHandler;
@@ -167,7 +166,6 @@ public class Game
 		
 		glOrtho(0, contextsize.width, 0, contextsize.height, -500, 500);
 		glMatrixMode(GL_MODELVIEW);
-//		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		
 		// Update flags
 		size.width = Display.getWidth();

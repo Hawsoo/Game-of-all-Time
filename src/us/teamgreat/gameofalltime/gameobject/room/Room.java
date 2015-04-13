@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -15,14 +14,15 @@ import us.teamgreat.gameofalltime.engine.Camera;
 import us.teamgreat.gameofalltime.engine.MathUtil;
 import us.teamgreat.gameofalltime.gameobject.GameObject;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Player;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObjectContainer;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.eventcollider.EventCollider;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.wall.Wall;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Player;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Puppet;
 import us.teamgreat.gameofalltime.resources.Resources;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
-import us.teamgreat.isoleveleditor.engine.entity.LE_Entity;
 import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 
 /**
@@ -35,9 +35,11 @@ public class Room implements GameObject
 	public Player player;
 	
 	protected Game game;
-	protected ArrayList<MapObject> objects;
+	private ArrayList<MapObject> objects;
 	private ArrayList<Puppet> puppets;
-	ArrayList<Collision> collisions;
+	private ArrayList<Collision> collisions;
+	
+	private ArrayList<PathNode> pathnodes;
 	
 	private Camera camera;
 	private Puppet followobj;
@@ -51,8 +53,9 @@ public class Room implements GameObject
 		objects = new ArrayList<MapObject>();
 		puppets = new ArrayList<Puppet>();
 		collisions = new ArrayList<Collision>();
+		pathnodes = new ArrayList<PathNode>();
 		
-		player = new Player(0, 0, 0, Puppet.DIR_S, collisions, game);
+		player = new Player(0, 0, 0, Puppet.DIR_S, pathnodes, collisions, game);
 		camera = new Camera(new Vector2f(0, 0), new Vector2f(0, 0), game);
 	}
 	
@@ -71,10 +74,6 @@ public class Room implements GameObject
 		{
 			// Create initial room
 			Room room = new Room(name, game);
-			
-			// Read file
-			/*BufferedReader br = new BufferedReader(
-					new FileReader(file));*/
 			
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(in));
@@ -102,7 +101,15 @@ public class Room implements GameObject
 						// Sort if entity is a regular entity or a puppet
 						if (model.getEntityType() == LE_Entities.PUPPET_ENTITY)
 						{
-							room.puppets.add(model.instantiatePuppet((int)pos.x, (int)pos.y, (int)pos.z, room.collisions, game));
+							room.puppets.add(model.instantiatePuppet((int)pos.x, (int)pos.y, (int)pos.z, room.pathnodes, room.collisions, game));
+						}
+						else if (model.getEntityType() == LE_Entities.PATH_NODE_ENTITY)
+						{
+							room.objects.add(new PathNode(pos.x, pos.y, pos.z, game));
+						}
+						else if (model.getEntityType() == LE_Entities.REGULAR_ENTITY)
+						{
+							room.objects.add(new MapObjectContainer(pos.x, pos.y, pos.z, model.getSprite(), game));
 						}
 					}
 					else if (type == LE_EntityTypes.WALL_ENTITY)
@@ -152,7 +159,7 @@ public class Room implements GameObject
 	private void updateCamera()
 	{
 		int tx = (int)followobj.x;
-		int ty = (int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(followobj.z * Resources.Z_RATIO + followobj.y);
+		int ty = (int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(followobj.z + followobj.y + Resources.drawYoff);
 		double distance = MathUtil.getDistance((int)camera.pos.x, (int)camera.pos.y, tx, ty) / 10;
 		double angle = MathUtil.getAngle((int)camera.pos.x, (int)camera.pos.y, tx, ty);
 		

@@ -25,7 +25,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import us.teamgreat.MainClass;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Puppet;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
 import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 import us.teamgreat.isoleveleditor.engine.util.EditorIO;

@@ -1,4 +1,4 @@
-package us.teamgreat.gameofalltime.gameobject.entity.mapobject;
+package us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Animation;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.collision.Collision;
 import us.teamgreat.gameofalltime.resources.Resources;
 
@@ -38,9 +39,9 @@ public class Guard extends Puppet
 	 * @param collisions
 	 * @param game
 	 */
-	public Guard(int x, int y, int z, int direction, ArrayList<Collision> collisions, Game game)
+	public Guard(int x, int y, int z, int direction, ArrayList<PathNode> pathnodes, ArrayList<Collision> collisions, Game game)
 	{
-		super(x, y, z, 5, 0.35, direction, collisions, game);
+		super(x, y, z, 5, 0.35, direction, pathnodes, collisions, game);
 		this.isPossessed = true;
 	}
 	
@@ -121,6 +122,6 @@ public class Guard extends Puppet
 		
 		// Render
 		GL11.glColor3f(1, 1, 1);
-		ani.render((int)x, (int)(z * Resources.Z_RATIO + y));
+		ani.render((int)x, (int)(z + y));
 	}
 }

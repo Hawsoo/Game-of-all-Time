@@ -5,7 +5,7 @@ import java.awt.event.WindowEvent;
 
 import us.teamgreat.MainClass;
 import us.teamgreat.gameofalltime.engine.Sprite;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.Puppet;
+import us.teamgreat.gameofalltime.gameobject.entity.mapobject.puppet.Puppet;
 import us.teamgreat.isoleveleditor.engine.entity.LE_Entities;
 import us.teamgreat.isoleveleditor.engine.entity.LE_EntityTypes;
 
