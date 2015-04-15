@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Animation;
+import us.teamgreat.gameofalltime.engine.MathUtil;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
 import us.teamgreat.gameofalltime.gameobject.room.Room;
@@ -22,11 +24,11 @@ public class Guard extends Puppet
 {
 	private static final int COMPENSATION = 4;
 	
-	private static final int MOVEMENT_FRAMES = 15;
+	private static final int MOVEMENT_FRAMES = 120;
 	private int framesWaited = 0;
 	
 	private ArrayList<PathNode> pathnodes;
-	private Vector2f nextLocation;
+	private Vector2f nextLocation = null;
 
 	/**
 	 * Creates a basic guard.
@@ -42,15 +44,20 @@ public class Guard extends Puppet
 		this.isPossessed = false;
 		
 		// Find all path nodes
-		pathnodes = new ArrayList<PathNode>();
+		/*pathnodes = new ArrayList<PathNode>();
 		for (MapObject object : room.objects)
 		{
 			if (object instanceof PathNode)
 				pathnodes.add((PathNode) object);
-		}
-		
+		}*/
+		pathnodes = room.pathnodes;
+	}
+	
+	@Override
+	public void init()
+	{
 		// Find first location
-		nextLocation = findNextLocation();
+		nextLocation = findNextLocation(/*nextLocation*/);
 		calibrateMovement();
 	}
 	
@@ -75,7 +82,7 @@ public class Guard extends Puppet
 	 * Finds next location based on 
 	 * @return
 	 */
-	private Vector2f findNextLocation()
+	private Vector2f findNextLocation(/*Vector2f previousloc*/)
 	{
 		// Look in next area direction
 		boolean found = false;
@@ -102,27 +109,27 @@ public class Guard extends Puppet
 			}
 			
 			// Get approx. point
-			Vector2f nextLoc = new Vector2f();
+			Vector2f nextloc = new Vector2f();
 			switch (direction)
 			{
 			case DIR_NE:
-				nextLoc.x = (float) (x + Resources.GRID_WIDTH / 2) + COMPENSATION;
-				nextLoc.y = (float) (y + Resources.GRID_HEIGHT / 2);
+				nextloc.x = (float) (x + Resources.GRID_WIDTH);
+				nextloc.y = (float) (y + Resources.GRID_HEIGHT / 2);
 				break;
 
 			case DIR_SE:
-				nextLoc.x = (float) (x + Resources.GRID_WIDTH / 2) + COMPENSATION;
-				nextLoc.y = (float) (y - Resources.GRID_HEIGHT / 2);
+				nextloc.x = (float) (x + Resources.GRID_WIDTH);
+				nextloc.y = (float) (y - Resources.GRID_HEIGHT / 2);
 				break;
 
 			case DIR_SW:
-				nextLoc.x = (float) (x - Resources.GRID_WIDTH / 2) + COMPENSATION;
-				nextLoc.y = (float) (y - Resources.GRID_HEIGHT / 2);
+				nextloc.x = (float) (x - Resources.GRID_WIDTH);
+				nextloc.y = (float) (y - Resources.GRID_HEIGHT / 2);
 				break;
 
 			case DIR_NW:
-				nextLoc.x = (float) (x - Resources.GRID_WIDTH / 2) + COMPENSATION;
-				nextLoc.y = (float) (y + Resources.GRID_HEIGHT / 2);
+				nextloc.x = (float) (x - Resources.GRID_WIDTH);
+				nextloc.y = (float) (y + Resources.GRID_HEIGHT / 2);
 				break;
 			}
 			
@@ -152,45 +159,71 @@ public class Guard extends Puppet
 //			if (increment % 2 == 0) nextLoc.x += (Resources.GRID_WIDTH / 2);
 			
 			// If there is a pathnode here
-			for (PathNode pathNode : pathnodes)
+			System.out.println("-----------------------------");
+			double lowestdist = 0;
+			PathNode favored = null;
+			for (PathNode pathnode : pathnodes)
 			{
-				if (pathNode.x == nextLoc.x && pathNode.z == nextLoc.y)
+				// Calculate distance and find if closest
+				double distance = MathUtil.getDistance(pathnode.x, pathnode.z, nextloc.x, nextloc.y);
+				if (distance < lowestdist || favored == null)
 				{
-					// This is the right one
-					return nextLoc;
+					// Calculate if this point is really just the previous one
+					System.out.println("hehe");
+					lowestdist = distance;
+					favored = pathnode;
 				}
+				
+				System.out.println(
+						"x=" + nextloc.x + ",\t" + pathnode.x + "\n" +
+						"z=" + nextloc.y + ",\t" + pathnode.z + "\n" +
+						"dist=" + distance + "\n" /*+
+						"distfromprev=" + MathUtil.getDistance(pathnode.x, pathnode.z, nextLocation.x, nextLocation.y) + "\n"*/);
+//				
+//				if (pathnode.x == nextloc.x && pathnode.z == nextloc.y)
+//				{
+//					// This is the right one
+//					return nextloc;
+//				}
 			}
 			
-			// Guess not...
-			// Turn clockwise
-			switch (direction)
+			if (favored != null)
+				// Selected favored pathnode
+				return new Vector2f((float)favored.x, (float)favored.z);
+			else
 			{
-			case DIR_NE:
-				direction = DIR_SE;
-				break;
+				// Turn around
+				switch (direction)
+				{
+				case DIR_NE:
+					direction = DIR_SE;
+					break;
 
-			case DIR_SE:
-				direction = DIR_SW;
-				break;
+				case DIR_SE:
+					direction = DIR_SW;
+					break;
 
-			case DIR_SW:
-				direction = DIR_NW;
-				break;
+				case DIR_SW:
+					direction = DIR_NW;
+					break;
 
-			case DIR_NW:
-				direction = DIR_NE;
-				break;
+				case DIR_NW:
+					direction = DIR_NE;
+					break;
+				}
 			}
 		}
-		
+//		return new Vector2f();
 		return null;
 	}
 	
 	@Override
 	public void normalUpdate()
 	{
-		// Move
-		move();
+		// Move (w/out move() (due to rounding error))
+//		move();
+		x += hspeed;
+		z += vspeed;
 		
 		// Increment timer
 		framesWaited++;

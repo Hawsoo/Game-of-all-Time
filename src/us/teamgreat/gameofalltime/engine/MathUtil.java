@@ -16,7 +16,7 @@ public class MathUtil
 	 * @param y2
 	 * @return
 	 */
-	public static double getAngle(int x1, int y1, int x2, int y2)
+	public static double getAngle(double x1, double y1, double x2, double y2)
 	{
 		return correctAngle(Math.toDegrees(Math.atan2(y2 - y1, x2 - x1)));
 	}
@@ -49,7 +49,7 @@ public class MathUtil
 	 * @param to
 	 * @return
 	 */
-	public static double getDistance(int x1, int y1, int x2, int y2)
+	public static double getDistance(double x1, double y1, double x2, double y2)
 	{
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}

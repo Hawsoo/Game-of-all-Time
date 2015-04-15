@@ -28,6 +28,13 @@ public class Player extends Puppet
 		super(x, y, z, 5, 0.35, direction, room, game);
 		this.isPossessed = true;
 	}
+
+	@Override
+	public void init()
+	{
+		// LATER create init player if any
+		
+	}
 	
 	@Override
 	public void normalUpdate()

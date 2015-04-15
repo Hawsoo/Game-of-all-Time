@@ -60,6 +60,11 @@ public abstract class Puppet extends MapObject
 		this.room = room;
 		this.collisions = room.collisions;
 	}
+	
+	/**
+	 * Initializes puppet.
+	 */
+	public abstract void init();
 
 	/**
 	 * Does puppet updating.

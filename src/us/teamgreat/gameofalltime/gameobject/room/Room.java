@@ -38,6 +38,7 @@ public class Room implements GameObject
 	public ArrayList<MapObject> objects;
 	public ArrayList<Puppet> puppets;
 	public ArrayList<Collision> collisions;
+	public ArrayList<PathNode> pathnodes;
 	
 	private Camera camera;
 	private Puppet followobj;
@@ -51,6 +52,7 @@ public class Room implements GameObject
 		objects = new ArrayList<MapObject>();
 		puppets = new ArrayList<Puppet>();
 		collisions = new ArrayList<Collision>();
+		pathnodes = new ArrayList<PathNode>();
 		
 		player = new Player(0, 0, 0, Puppet.DIR_S, this, game);
 		camera = new Camera(new Vector2f(0, 0), new Vector2f(0, 0), game);
@@ -71,7 +73,6 @@ public class Room implements GameObject
 		{
 			// Create initial room
 			Room room = new Room(name, game);
-			
 			BufferedReader br = new BufferedReader(
 					new InputStreamReader(in));
 			{
@@ -107,7 +108,8 @@ public class Room implements GameObject
 						}
 						else if (model.getEntityType() == LE_Entities.PATH_NODE_ENTITY)
 						{
-							room.objects.add(new PathNode(pos.x, pos.y, pos.z, game));
+							// HERESTO import pathnodes
+							room./*objects*/pathnodes.add(new PathNode(pos.x, pos.y, pos.z, game));
 						}
 						else if (model.getEntityType() == LE_Entities.REGULAR_ENTITY)
 						{
@@ -127,6 +129,12 @@ public class Room implements GameObject
 				}
 			}
 			br.close();
+			
+			// Initalize all puppets
+			for (Puppet puppet : room.puppets)
+			{
+				puppet.init();
+			}
 			
 			// Return room
 			return room;
@@ -162,8 +170,8 @@ public class Room implements GameObject
 	{
 		int tx = (int)followobj.x;
 		int ty = (int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(int)(followobj.z + followobj.y + Resources.drawYoff);
-		double distance = MathUtil.getDistance((int)camera.pos.x, (int)camera.pos.y, tx, ty) / 10;
-		double angle = MathUtil.getAngle((int)camera.pos.x, (int)camera.pos.y, tx, ty);
+		double distance = MathUtil.getDistance(camera.pos.x, camera.pos.y, tx, ty) / 10;
+		double angle = MathUtil.getAngle(camera.pos.x, camera.pos.y, tx, ty);
 		
 		int dx = (int) (distance * Math.cos(Math.toRadians(angle)));
 		int dy = (int) (distance * Math.sin(Math.toRadians(angle)));
