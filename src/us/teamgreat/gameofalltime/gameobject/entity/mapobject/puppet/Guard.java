@@ -185,6 +185,19 @@ public class Guard extends Puppet
 //					// This is the right one
 //					return nextloc;
 //				}
+				
+				// FIXME This is super important for path-finding!!!!!!!!!!
+				if (nextLocation != null)
+				{
+					// HERESTO Check prev pathfinding
+					System.out.println("\tx=" + nextLocation.x + ",\tz=" + nextLocation.y + "\n" +
+							"\tx=" + pathnode.x + ",\tz=" + pathnode.z + "\n");
+					
+					if (nextLocation.x == pathnode.x && nextLocation.y == pathnode.z)
+					{
+						System.out.println("\tIT HAPPENED!");
+					}
+				}
 			}
 			
 			if (favored != null)
