@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
 
 import us.teamgreat.gameofalltime.Game;
 import us.teamgreat.gameofalltime.engine.Animation;
 import us.teamgreat.gameofalltime.engine.MathUtil;
-import us.teamgreat.gameofalltime.gameobject.entity.mapobject.MapObject;
 import us.teamgreat.gameofalltime.gameobject.entity.mapobject.PathNode;
 import us.teamgreat.gameofalltime.gameobject.room.Room;
 import us.teamgreat.gameofalltime.resources.Resources;
@@ -24,7 +22,7 @@ public class Guard extends Puppet
 {
 	private static final int COMPENSATION = 4;
 	
-	private static final int MOVEMENT_FRAMES = 120;
+	private static final int MOVEMENT_FRAMES = 30;
 	private int framesWaited = 0;
 	
 	private ArrayList<PathNode> pathnodes;
@@ -169,16 +167,32 @@ public class Guard extends Puppet
 				if (distance < lowestdist || favored == null)
 				{
 					// Calculate if this point is really just the previous one
-					System.out.println("hehe");
-					lowestdist = distance;
-					favored = pathnode;
+					if (nextLocation != null)
+					{
+						// HERESTO Check prev pathfinding
+//						System.out.println("\tx=" + nextLocation.x + ",\tz=" + nextLocation.y + "\n" +
+//								"\tx=" + pathnode.x + ",\tz=" + pathnode.z + "\n");
+						
+						if (nextLocation.x != pathnode.x || nextLocation.y != pathnode.z)
+						{
+							System.out.println("\tIT HAPPENED!");
+							lowestdist = distance;
+							favored = pathnode;
+						}
+					}
+					// Treat all equally
+					else
+					{
+						lowestdist = distance;
+						favored = pathnode;
+					}
 				}
 				
-				System.out.println(
-						"x=" + nextloc.x + ",\t" + pathnode.x + "\n" +
-						"z=" + nextloc.y + ",\t" + pathnode.z + "\n" +
-						"dist=" + distance + "\n" /*+
-						"distfromprev=" + MathUtil.getDistance(pathnode.x, pathnode.z, nextLocation.x, nextLocation.y) + "\n"*/);
+//				System.out.println(
+//						"x=" + nextloc.x + ",\t" + pathnode.x + "\n" +
+//						"z=" + nextloc.y + ",\t" + pathnode.z + "\n" +
+//						"dist=" + distance + "\n" /*+
+//						"distfromprev=" + MathUtil.getDistance(pathnode.x, pathnode.z, nextLocation.x, nextLocation.y) + "\n"*/);
 //				
 //				if (pathnode.x == nextloc.x && pathnode.z == nextloc.y)
 //				{
@@ -186,18 +200,18 @@ public class Guard extends Puppet
 //					return nextloc;
 //				}
 				
-				// FIXME This is super important for path-finding!!!!!!!!!!
-				if (nextLocation != null)
-				{
-					// HERESTO Check prev pathfinding
-					System.out.println("\tx=" + nextLocation.x + ",\tz=" + nextLocation.y + "\n" +
-							"\tx=" + pathnode.x + ",\tz=" + pathnode.z + "\n");
-					
-					if (nextLocation.x == pathnode.x && nextLocation.y == pathnode.z)
-					{
-						System.out.println("\tIT HAPPENED!");
-					}
-				}
+				// This is super important for path-finding!!!!!!!!!!
+//				if (nextLocation != null)
+//				{
+//					// Check prev pathfinding
+//					System.out.println("\tx=" + nextLocation.x + ",\tz=" + nextLocation.y + "\n" +
+//							"\tx=" + pathnode.x + ",\tz=" + pathnode.z + "\n");
+//					
+//					if (nextLocation.x == pathnode.x && nextLocation.y == pathnode.z)
+//					{
+//						System.out.println("\tIT HAPPENED!");
+//					}
+//				}
 			}
 			
 			if (favored != null)
@@ -233,6 +247,24 @@ public class Guard extends Puppet
 	@Override
 	public void normalUpdate()
 	{
+		// Update facing direction
+		if (hspeed < 0 && vspeed < 0)
+			direction = DIR_SW;
+		else if (hspeed > 0 && vspeed < 0)
+			direction = DIR_SE;
+		else if (hspeed > 0 && vspeed > 0)
+			direction = DIR_NE;
+		else if (hspeed < 0 && vspeed > 0)
+			direction = DIR_NW;
+		else if (hspeed < 0)
+			direction = DIR_W;
+		else if (hspeed > 0)
+			direction = DIR_E;
+		else if (vspeed < 0)
+			direction = DIR_S;
+		else if (vspeed > 0)
+			direction = DIR_N;
+		
 		// Move (w/out move() (due to rounding error))
 //		move();
 		x += hspeed;
